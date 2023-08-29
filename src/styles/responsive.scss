@@ -1,0 +1,21 @@
+$desktop: 1600px;
+$tablet: 770px;
+$smartphone: 600px;
+$miniphone: 320px;
+@media (max-width: $desktop) {
+  .smartHeader {
+    display: none;
+  }
+}
+@media (max-width: $tablet) {
+}
+@media (max-width: $smartphone) {
+  .smartHeader {
+    display: block;
+  }
+  .deskHeader {
+    display: none;
+  }
+}
+@media (max-width: $miniphone) {
+}

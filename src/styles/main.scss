@@ -1,0 +1,949 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;800&display=swap");
+$primary: #291db2;
+$secondary: #5b5b5b;
+$lightColor: #efedff;
+$commonShadow: 0 7px 20px -10px #bdbdbd;
+$btnpadding: 5px 20px;
+$darkColor: #222;
+$smooth: 0.4s ease-in-out;
+$white: #fff;
+$image3d: 0 5px 20px -10px #777;
+
+body {
+  h2 {
+    color: $primary;
+    font-family: "Inter", sans-serif;
+    font-weight: 800;
+    position: relative;
+  }
+  ul,
+  li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+}
+.deskHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 40px;
+  background: $white;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 5px 10px -5px #ddd;
+
+  .logo img {
+    width: 30%;
+    height: 30%;
+  }
+
+  .headerBtns {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    a.buysell {
+      background: $secondary;
+      color: $white;
+      border-radius: 10px;
+      height: 45px;
+      border: 1px solid #0000;
+      font-size: 16px;
+      padding: $btnpadding;
+      position: relative;
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+
+      svg {
+        color: $white;
+        font-size: 20px;
+      }
+    }
+    a {
+      height: 45px;
+      width: 45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #14c047;
+      font-size: 30px;
+      border-radius: 10px;
+      border: 1px solid #0000;
+      color: $white;
+    }
+  }
+  .loginBtn {
+    button {
+      background: $primary;
+      color: $white;
+      font-weight: 600;
+      border: 1px solid #0000;
+      border-radius: 10px;
+      height: 45px;
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+  }
+}
+section.hero {
+  padding: 20px;
+}
+.centerit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.categoryCard {
+  padding: 20px;
+  a {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+    img {
+      border-radius: 10px;
+      box-shadow: $commonShadow;
+      width: 100px;
+    }
+    span {
+      font-size: 20px;
+      font-weight: 700;
+      color: #444;
+    }
+  }
+}
+
+section.commonSection {
+  background: $white;
+  margin: 20px;
+  padding: 20px 10px;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  box-shadow: 0 5px 10px -5px #ddd;
+}
+button.commonBtn {
+  background: #291db2;
+  color: $white;
+  font-weight: 600;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px 15px;
+}
+.centerHeading {
+  text-align: center;
+  width: 100%;
+}
+.loginForm {
+  width: 100%;
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #eee;
+    border-radius: 20px;
+    flex-direction: column;
+    background: $white;
+    padding: 20px;
+    gap: 20px;
+    input {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 10px;
+      padding-left: 20px;
+      transition: $smooth;
+      outline: none;
+    }
+    input:focus {
+      border: 1px solid $primary;
+    }
+  }
+}
+section.loginSection {
+  height: 100vh;
+  background: $lightColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.statsCard {
+  position: relative;
+  background: #efedff;
+  border-radius: 20px;
+  box-shadow: 0 7px 10px -5px #bbb;
+  padding: 20px;
+
+  svg {
+    position: absolute;
+    font-size: 40px;
+    top: 10px;
+    right: 10px;
+    border: 1px dashed #ccc;
+    border-radius: 10px;
+    transition: $smooth;
+  }
+}
+
+section.adminPanel {
+  margin: 20px;
+  padding: 20px;
+}
+.statsTable {
+  padding: 20px;
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  table {
+    background: #f7f8ff;
+    border-radius: 10px;
+    width: 100%;
+    overflow: hidden;
+
+    thead {
+      th {
+        background: $primary !important;
+        color: $white;
+        padding: 5px;
+      }
+      th:not(:last-child) {
+        border-right: 2px solid #eee;
+      }
+    }
+    tbody {
+      tr:nth-child(odd) {
+        background: #fffcd8;
+      }
+      tr {
+        td {
+          padding: 5px;
+        }
+      }
+    }
+  }
+}
+a.viewBtn,
+a.deleteBtn,
+button.viewBtn,
+button.deleteBtn {
+  border: 1px dashed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 7px;
+  background: #0000;
+}
+
+a.viewBtn {
+  color: $primary;
+}
+a.deleteBtn,
+button.deleteBtn {
+  transition: $smooth;
+  color: #ff4a4a;
+
+  &:hover {
+    border: 1px solid #ff4a4a;
+    background: #ff4a4a;
+    color: #fff;
+  }
+}
+.spcbtwn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h4 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    color: $primary;
+    font-size: 20px;
+  }
+}
+a.viewAll {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 5px;
+  gap: 10px;
+  border-radius: 10px;
+  border: 1px dashed $primary;
+  color: $primary;
+  position: relative;
+}
+a.actionBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 10px;
+  gap: 10px;
+  border-radius: 10px;
+  outline: 1px dashed $primary;
+  color: $primary;
+  position: relative;
+  transition: $smooth;
+
+  svg {
+    border-radius: 5px;
+    font-size: 30px;
+    padding: 5px;
+    background: #0000;
+    color: $primary;
+    transition: $smooth;
+  }
+  :hover {
+    background: $primary;
+  }
+}
+a.actionBtn:hover {
+  svg {
+    background: $primary;
+    color: #fff;
+  }
+  background: #f7f8ff;
+  outline: 1px solid $primary;
+  outline-offset: 3px;
+}
+section.productBread {
+  background: $lightColor;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2px;
+  padding: 5px 20px;
+
+  h3 {
+    color: #000;
+    transition: $smooth;
+    font-weight: 800;
+  }
+  ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+  }
+  ul li {
+    position: static;
+    margin-bottom: 5px;
+
+    a {
+      color: #444;
+    }
+  }
+  ul li:not(:last-child) {
+    position: relative;
+    ::before {
+      position: absolute;
+      content: "❯";
+      height: 10px;
+      width: 10px;
+      top: 0;
+      right: -15px;
+      color: $secondary;
+    }
+  }
+}
+.productAboutSlider {
+  border-radius: 20px;
+}
+.productSlides {
+  img {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.paddingCommon {
+  padding: 20px;
+}
+.productPage {
+  h1 {
+    color: #222;
+    position: relative;
+    font-size: 32px;
+
+    &::before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: $primary;
+    }
+  }
+}
+section.ligtbgSection {
+  padding: 20px;
+  margin: 20px;
+  position: relative;
+  border-radius: 20px;
+  background: $lightColor;
+}
+
+.featureBox {
+  padding: 20px;
+  border-radius: 20px;
+  background: $lightColor;
+
+  table {
+    background: white;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+
+    tr {
+      border-bottom: 1px solid #eee;
+      th {
+        padding: 10px;
+        padding-left: 15px;
+        width: 20%;
+      }
+      td {
+        border-left: 1px solid #eee;
+        padding: 10px;
+        padding-left: 15px;
+        width: 80%;
+      }
+    }
+  }
+}
+.indsutryCard {
+  width: 100%;
+  background: #8acdff05;
+  transition: $smooth;
+  padding: 10px;
+  border-radius: 10px;
+  border: 2px dashed $lightColor;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.mainfooter {
+  background: $lightColor;
+  padding: 20px;
+}
+.bottomfooter {
+  color: #fff;
+  background: $primary;
+  padding: 10px;
+  text-align: center;
+}
+.footerAbout {
+  padding: 10px;
+  background: #fff;
+  border-radius: 20px;
+
+  ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    li {
+      a {
+        transition: $smooth;
+        font-size: 30px;
+        outline: 2px solid #0000;
+        color: $primary;
+        border-radius: 50%;
+        height: 30px;
+        width: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          outline-offset: 3px;
+          outline: 2px dashed $primary;
+        }
+      }
+    }
+  }
+}
+
+h5.footerHeading {
+  color: $darkColor;
+  font-weight: 700;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    content: "";
+    top: -3px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: $primary;
+  }
+}
+.footerLinks {
+  a {
+    color: $darkColor;
+    transition: $smooth;
+    position: relative;
+    display: block;
+    &:hover {
+      letter-spacing: 2px;
+      transform: translateX(10px);
+    }
+    &::before {
+      position: absolute;
+      content: "〉";
+      top: 0;
+      left: -15px;
+      width: 0;
+      font-weight: 900;
+      height: 0;
+      background: $primary;
+      opacity: 0;
+      transition: $smooth;
+    }
+
+    &:hover::before {
+      width: 100%;
+      opacity: 1;
+      left: -10px;
+    }
+  }
+}
+.reachUs {
+  a {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    transition: $smooth;
+    color: $darkColor;
+    gap: 10px;
+
+    svg {
+      font-size: 20px;
+      color: $primary;
+    }
+  }
+}
+.productCard {
+  padding: 10px;
+  transition: $smooth;
+  border: 1px solid #eee;
+  border-radius: 20px;
+  background: #fff;
+
+  &:hover .productImg img {
+    transform: scale(1.2) rotate(2deg);
+    transform-origin: bottom;
+  }
+
+  .productImg {
+    overflow: hidden;
+    border-radius: 10px;
+
+    img {
+      width: 100%;
+      transition: $smooth;
+      height: 100%;
+    }
+  }
+}
+.productContent {
+  a {
+    h3 {
+      color: $darkColor;
+      transition: $smooth;
+      margin: 10px 0;
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
+}
+a.viewMore {
+  background: $lightColor;
+  color: $primary;
+  padding: 7px 15px;
+  border-radius: 10px;
+  transition: $smooth;
+  display: flex;
+  width: max-content;
+  align-items: center;
+
+  svg {
+    height: 25px;
+    width: 25px;
+    transition: $smooth;
+  }
+  &:hover {
+    color: #fff;
+    background: $primary;
+  }
+  &:hover svg {
+    height: 25px;
+    width: 25px;
+    transition: $smooth;
+    border-radius: 5px;
+    color: $primary;
+    margin-left: 5px;
+    background: #fff;
+  }
+}
+
+.relatedproductslider {
+  .swiper-button-prev,
+  .swiper-button-next {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #291db2;
+    border-radius: 10px;
+  }
+  .swiper-button-prev:after,
+  .swiper-button-next:after {
+    font-size: 25px;
+    color: #fff;
+  }
+}
+h2.attachedHeading {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  background: #efedff;
+  padding: 5px 10px;
+  border-radius: 10px 10px 0 0;
+  top: -42px;
+}
+
+.mt-section {
+  margin-top: 72px !important;
+}
+.inputGroup {
+  position: relative;
+  width: 100%;
+}
+
+.createInput {
+  border: solid 1px #eee;
+  border-radius: 1rem;
+  background: none;
+  padding: 1rem;
+  font-size: 1rem;
+  color: $darkColor;
+  transition: border 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+.user-label {
+  position: absolute;
+  left: 15px;
+  color: #444;
+  pointer-events: none;
+  transform: translateY(1rem);
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.createInput:focus,
+.createInput:valid {
+  outline: none;
+  border: 1px solid $primary;
+}
+
+.createInput:focus ~ label,
+.createInput:valid ~ label {
+  transform: translateY(-50%) scale(0.8);
+  background-color: #fff;
+  padding: 0 0.2em;
+  color: $primary;
+}
+.react-tabs__tab-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-bottom: none !important;
+  flex-direction: column;
+}
+.react-tabs__tab {
+  display: flex !important;
+  justify-content: space-between;
+  align-items: center;
+  background: $lightColor;
+  color: $primary;
+  transition: $smooth;
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px !important;
+
+  svg {
+    width: 30px;
+    height: 30px;
+    padding: 2px;
+    border-radius: 5px;
+    background: $lightColor;
+  }
+}
+.react-tabs__tab--selected {
+  border: none !important;
+  background: $primary !important;
+  border-radius: 10px !important;
+  transform: scale(1.05) !important;
+  box-shadow: 0px 7px 20px -15px $primary;
+  color: $lightColor !important;
+
+  svg {
+    background: #fff;
+    color: $primary;
+  }
+  &::after {
+    opacity: 0;
+  }
+}
+.tabContent {
+  height: 100%;
+  background: $lightColor;
+  padding: 10px;
+  border-radius: 20px;
+}
+.tabForm {
+  background: #fff;
+  border-radius: 20px;
+  height: 100%;
+  padding: 20px 10px;
+}
+
+section.createSection {
+  padding: 20px;
+  margin: 20px;
+}
+.cardIndustry {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  background: #0000;
+  padding: 5px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  width: 100%;
+}
+.industrySelect {
+  label {
+    position: relative;
+    width: 100%;
+
+    input {
+      position: absolute;
+      accent-color: #291db2;
+      width: 15px;
+      height: 15px;
+      top: -5px;
+      right: -5px;
+      background: #fff;
+    }
+  }
+}
+.gap-10 {
+  gap: 10px;
+}
+.searchBar form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+
+  input {
+    height: 45px;
+    width: 300px;
+    outline: none;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding-left: 15px;
+    transition: $smooth;
+  }
+  input:focus {
+    background: $lightColor;
+  }
+  button {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #0000;
+    background: $primary;
+    color: $white;
+  }
+}
+section.centerForm {
+  height: 100vh;
+  background: $lightColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.formSmall {
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: $commonShadow;
+  background: #fff;
+
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+button.addMore {
+  background: #fff;
+  color: #291db2;
+  outline: none;
+  border: 1px dashed #291db2;
+  border-radius: 10px;
+  height: 40px;
+  width: 40px;
+  font-size: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pointList {
+  word-wrap: break-word;
+}
+.lsn {
+  list-style: numeric;
+}
+button.commonBtn:disabled {
+  background: #777;
+  color: #fff;
+}
+.searchBar {
+  position: relative;
+}
+.searchList {
+  position: absolute;
+  top: calc(100% + 20px);
+  height: 200px;
+  background: $lightColor;
+  width: 400px;
+  padding: 10px;
+  z-index: 111;
+  border-radius: 10px;
+  box-shadow: $commonShadow;
+
+  ul {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow: hidden;
+    height: 100%;
+    overflow-y: scroll;
+    padding-right: 10px;
+
+    &::-webkit-scrollbar {
+      background: #fff;
+      width: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      background: $primary;
+    }
+
+    gap: 10px;
+    flex-direction: column;
+    li {
+      width: 100%;
+    }
+  }
+
+  a {
+    display: block;
+    .searchLink {
+      padding: 10px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 7px;
+    }
+  }
+}
+span.categoryBadge {
+  background: $primary;
+  padding: 3px;
+  font-size: 12px;
+  color: #fff;
+  border-radius: 5px;
+}
+.commonBox {
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: $commonShadow;
+  height: 100%;
+  background: #fff;
+  position: relative;
+}
+.clientInfoList {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  flex-direction: column;
+
+  li {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    font-size: 20px;
+
+    svg {
+      color: $primary;
+    }
+  }
+}
+.plainSection {
+  padding: 40px;
+  background: $lightColor;
+}
+.bannerCard {
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: $commonShadow;
+  background: #fff;
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    box-shadow: $image3d;
+  }
+}
