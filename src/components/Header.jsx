@@ -5,7 +5,7 @@ import { FiUser } from "react-icons/fi";
 import { BsBag, BsReceipt, BsSearch, BsWhatsapp } from "react-icons/bs";
 import { PiHandsPraying } from "react-icons/pi";
 import Link from "next/link";
-import logo from "../images/logo.png";
+import logo from "@/images/logo.png";
 export default function Header() {
   const [validInput, setValidInput] = useState("");
   const [userClicked, setUserClicked] = useState("");
