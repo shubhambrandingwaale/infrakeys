@@ -10,6 +10,7 @@ export default function Header() {
   const [validInput, setValidInput] = useState("");
   const [userClicked, setUserClicked] = useState("");
   const handleInputChange = (event) => {
+    // comment
     const inputValue = event.target.value;
     setValidInput(inputValue);
   };
