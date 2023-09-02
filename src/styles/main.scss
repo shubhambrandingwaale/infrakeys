@@ -10,6 +10,7 @@ $white: #fff;
 $image3d: 0 5px 20px -10px #777;
 
 body {
+  background: $lightColor;
   h2 {
     color: $primary;
     font-family: "Inter", sans-serif;
@@ -36,8 +37,8 @@ body {
   box-shadow: 0 5px 10px -5px #ddd;
 
   .logo img {
-    width: 30%;
-    height: 30%;
+    width: 50%;
+    height: 50%;
   }
 
   .headerBtns {
@@ -912,6 +913,13 @@ span.categoryBadge {
   background: #fff;
   position: relative;
 }
+button.username {
+  background: #0000;
+  color: $primary;
+  font-weight: 600;
+  border: none;
+  outline: none;
+}
 .clientInfoList {
   display: flex;
   justify-content: flex-start;
@@ -946,4 +954,49 @@ span.categoryBadge {
     border-radius: 10px;
     box-shadow: $image3d;
   }
+}
+.userView {
+  position: relative;
+  .userminiPanel {
+    position: absolute;
+    animation: slide-in-fwd-top 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+    height: auto;
+    width: 300px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    top: calc(100% + 20px);
+    right: 0;
+    border: 1px solid #eee;
+    box-shadow: $commonShadow;
+    z-index: 111;
+  }
+}
+@keyframes slide-in-fwd-top {
+  0% {
+    -webkit-transform: translateZ(-1400px) translateY(-800px);
+    transform: translateZ(-1400px) translateY(-800px);
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: translateZ(0) translateY(0);
+    transform: translateZ(0) translateY(0);
+    opacity: 1;
+  }
+}
+button.whiteBtn {
+  background: #fff;
+  color: #291db2;
+  font-weight: 600;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 5px 15px;
+  border: 1px solid #eee;
+}
+.gap20 {
+  gap: 20px;
 }

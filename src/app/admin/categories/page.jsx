@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
+import { BiSolidEdit } from "react-icons/bi";
 import { BsSearch } from "react-icons/bs";
 import { TfiDropboxAlt } from "react-icons/tfi";
 
@@ -71,7 +72,7 @@ export default function Page() {
                       <td>
                         <div className="actionBox d-flex gap-10 justify-content-center">
                           <Link className="viewBtn" href="/">
-                            <AiOutlineEye />
+                            <BiSolidEdit />
                           </Link>
                           <button
                             className="deleteBtn"

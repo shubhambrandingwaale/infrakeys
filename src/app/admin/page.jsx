@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import StatsCard from "./Components/StatsCard";
 import ActionPanel from "./Components/ActionPanel";
 import StatsTable from "./Components/StatsTable";
@@ -20,8 +21,23 @@ import ActionBtn from "./Components/ActionBtn";
 import { HiViewGridAdd } from "react-icons/hi";
 import { BsBoxSeam } from "react-icons/bs";
 import { BiSolidPieChartAlt2 } from "react-icons/bi";
+import { publicRequest } from "@/libs/requestMethods";
 
 export default function Page() {
+  const [stats, setStats] = useState([]);
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const resp = await publicRequest.get("/dashboard/details");
+        setStats(resp.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+  console.log(stats);
+
   return (
     <>
       <section className="adminPanel">
@@ -74,12 +90,12 @@ export default function Page() {
                 <div className="row" id="actionProducts">
                   <ActionBtn
                     name="Add Industries"
-                    link="/"
+                    link="/admin/categories/add"
                     icon={<HiViewGridAdd />}
                   />
                   <ActionBtn
                     name="View All Industries"
-                    link="/"
+                    link="/admin/categories"
                     icon={<MdOutlineFactory />}
                   />
                 </div>
@@ -97,42 +113,42 @@ export default function Page() {
                   <div className="col-sm-4 mb-3 col-12">
                     <div className="statsCard">
                       <MdTrolley />
-                      <h2>147</h2>
+                      <h2>{stats[0]?.total_products}</h2>
                       <span>Total Products</span>
                     </div>
                   </div>
                   <div className="col-sm-4 mb-3 col-12">
                     <div className="statsCard">
                       <MdTrolley />
-                      <h2>147</h2>
+                      <h2>{stats[0]?.total_categories}</h2>
                       <span>Total Categories</span>
                     </div>
                   </div>
                   <div className="col-sm-4 mb-3 col-12">
                     <div className="statsCard">
                       <MdTrolley />
-                      <h2>147</h2>
+                      <h2>{stats[0]?.total_sub_categories}</h2>
                       <span>Total Sub Categories</span>
                     </div>
                   </div>
                   <div className="col-sm-4 mb-3 col-12">
                     <div className="statsCard">
                       <MdTrolley />
-                      <h2>147</h2>
+                      <h2>{stats[0]?.total_users}</h2>
                       <span>Total Customers</span>
                     </div>
                   </div>
                   <div className="col-sm-4 mb-3 col-12">
                     <div className="statsCard">
                       <MdTrolley />
-                      <h2>147</h2>
+                      <h2>{stats[0]?.total_product_queries}</h2>
                       <span>Total Enquiries raised</span>
                     </div>
                   </div>
                   <div className="col-sm-4 mb-3 col-12">
                     <div className="statsCard">
                       <MdTrolley />
-                      <h2>147</h2>
+                      <h2>{stats[0]?.total_banners}</h2>
                       <span>Total Banners </span>
                     </div>
                   </div>

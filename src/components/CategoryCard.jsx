@@ -15,7 +15,7 @@ export default function CategoryCard({ category }) {
               .join("-")}/${category.id}`}
           >
             <Image
-              src={`https://infrakeys-backend-production.up.railway.app${category.image_url}`}
+              src={`http://62.72.59.14${category.image_url}`}
               alt={` ${category.name}  | Main Categories in Infrakeys`}
               height={100}
               width={100}

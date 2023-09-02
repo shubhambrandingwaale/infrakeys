@@ -3,23 +3,33 @@ import React, { useState } from "react";
 import Image from "next/image";
 import { FiUser } from "react-icons/fi";
 import { BsBag, BsReceipt, BsSearch, BsWhatsapp } from "react-icons/bs";
+import { PiHandsPraying } from "react-icons/pi";
 import Link from "next/link";
-
+import logo from "../images/logo.png";
 export default function Header() {
   const [validInput, setValidInput] = useState("");
-
+  const [userClicked, setUserClicked] = useState("");
   const handleInputChange = (event) => {
     const inputValue = event.target.value;
     setValidInput(inputValue);
   };
-
   const isInputValid = validInput.trim() !== "";
+  const barHideShow = () => {
+    setUserClicked(!userClicked);
+  };
   return (
     <>
       <header>
         <div className="deskHeader">
           <div className="logo">
-            <h3>Infrakeys</h3>
+            <Link href="/">
+              <Image
+                src={logo}
+                height={115}
+                width={255}
+                alt="Infrakeys | Logo"
+              />
+            </Link>
           </div>
           <div className="searchBar">
             <form>
@@ -64,10 +74,42 @@ export default function Header() {
               <BsWhatsapp />
             </a>
           </div>
-          <div className="loginBtn">
-            <button className="login">
-              <FiUser /> Login
+          <div className="userView">
+            <button onClick={barHideShow} className="username">
+              Hello
+              <PiHandsPraying />
+              &nbsp;
+              <span>Shubham Solanki</span>
             </button>
+            {userClicked ? (
+              <div className="userminiPanel">
+                <div className="userInfo">
+                  <div className="circleUser">
+                    <FiUser />
+                    <div className="contact">
+                      <h6>Shubham Solanki</h6>
+                      <span>example@gmail.com</span>
+                    </div>
+                  </div>
+                </div>
+                <ul>
+                  <li>
+                    <Link href="/my-dashboard">
+                      <BsBag />
+                      My Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/">
+                      <BsBag />
+                      Logout
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              ""
+            )}
           </div>
         </div>
         <div className="smartHeader">

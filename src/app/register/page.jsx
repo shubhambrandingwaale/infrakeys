@@ -6,7 +6,6 @@ import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
 export default function Page() {
-  const router = useRouter();
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [inputVals, setInputVals] = useState({
     fullname: "",
@@ -14,8 +13,6 @@ export default function Page() {
     password: "",
     city: "",
     state: "",
-    pincode: "",
-    country: "",
   });
 
   async function onSubmit(e) {
@@ -32,7 +29,6 @@ export default function Page() {
     }
   }
   console.log(inputVals);
-
   return (
     <>
       <section className="loginSection">
@@ -90,28 +86,6 @@ export default function Page() {
                     type="text"
                     placeholder="State"
                     name="state"
-                    onChange={(e) => {
-                      setInputVals((prev) => ({
-                        ...prev,
-                        [e.target.name]: e.target.value,
-                      }));
-                    }}
-                  />
-                  <input
-                    type="number"
-                    placeholder="Pincode"
-                    name="pincode"
-                    onChange={(e) => {
-                      setInputVals((prev) => ({
-                        ...prev,
-                        [e.target.name]: e.target.value,
-                      }));
-                    }}
-                  />
-                  <input
-                    type="text"
-                    placeholder="Country"
-                    name="country"
                     onChange={(e) => {
                       setInputVals((prev) => ({
                         ...prev,

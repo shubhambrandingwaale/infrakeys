@@ -1,17 +1,21 @@
 "use client";
-import React, { useState } from "react";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import { MdOutlineFactory, MdOutlineFeaturedPlayList } from "react-icons/md";
-import { TbBrandAppleArcade, TbLogout } from "react-icons/tb";
-import { BiBookContent, BiListCheck } from "react-icons/bi";
+import React, { useEffect, useState } from "react";
+import { BiListCheck } from "react-icons/bi";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import LeftHeading from "@/components/LeftHeading";
-import IndustryCard from "@/components/IndustryCard";
 import Image from "next/image";
 import { BsEye, BsInfoCircle, BsKey } from "react-icons/bs";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
+import { publicRequest } from "@/libs/requestMethods";
+import AdminHeading from "../admin/Components/AdminHeading";
 
-export default function Page() {
+export default function Page(id) {
+  const [products, setProducts] = useState([]);
+
   const [visible, setVisible] = useState(false);
   const handleSetVisible = () => {
     setVisible(true);
@@ -19,7 +23,17 @@ export default function Page() {
   const hideModal = () => {
     setVisible(false);
   };
-
+  useEffect(() => {
+    async function getproducts(id) {
+      try {
+        const resp = await publicRequest.get(`/recently-viewed/${id}`);
+        setProducts(resp.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getproducts(id);
+  }, [id]);
   return (
     <>
       <section className="createSection">
@@ -42,9 +56,6 @@ export default function Page() {
                       <Tab>
                         Change Password <BsKey />
                       </Tab>
-                      <Tab>
-                        Logout <TbLogout />
-                      </Tab>
                     </TabList>
                   </div>
                 </div>
@@ -59,97 +70,70 @@ export default function Page() {
                                 <h4>About Me</h4>
                               </div>
                             </div>
-                            <form action="">
-                              <div className="col-lg-6">
-                                <div className="inputGroup">
-                                  <input
-                                    required
-                                    type="text"
-                                    name="text"
-                                    autoComplete="off"
-                                    className="createInput"
-                                  />
-                                  <label className="user-label">My Name</label>
-                                </div>
-                              </div>
-                              <div className="col-lg-3">
-                                <div className="inputGroup">
-                                  <select
-                                    required
-                                    type="text"
-                                    name="text"
-                                    autoComplete="off"
-                                    className="createInput"
-                                  >
-                                    <option value=""></option>
-                                    <option value="Categroy 1">
-                                      Categroy 1
-                                    </option>
-                                    <option value="Categroy 2">
-                                      Categroy 2
-                                    </option>
-                                    <option value="Categroy 3">
-                                      Categroy 3
-                                    </option>
-                                    <option value="Categroy 4">
-                                      Categroy 4
-                                    </option>
-                                  </select>
-                                  <label className="user-label">
-                                    Select Category
-                                  </label>
-                                </div>
-                              </div>
-                              <div className="col-lg-3">
-                                <div className="inputGroup">
-                                  <select
-                                    required
-                                    type="text"
-                                    name="text"
-                                    autoComplete="off"
-                                    className="createInput"
-                                  >
-                                    <option value=""></option>
-                                    <option value="Sub Category 1">
-                                      Sub Category 2
-                                    </option>
-                                    <option value="Sub Category 1">
-                                      Sub Category 4
-                                    </option>
-                                    <option value="Sub Category 1">
-                                      Sub Category 3
-                                    </option>
-                                  </select>
-                                  <label className="user-label">
-                                    Select Sub Category
-                                  </label>
-                                </div>
-                              </div>
-                              <div className="col-12 mt-3">
-                                <div className="inputGroup">
-                                  <textarea
-                                    required
-                                    type="text"
-                                    name="text"
-                                    autoComplete="off"
-                                    className="createInput"
-                                    rows="5"
-                                  />
-                                  <label className="user-label">
-                                    About Description
-                                  </label>
-                                </div>
-                              </div>
-                            </form>
                           </div>
+                          <form className="row">
+                            <div className="col-lg-6 mt-3">
+                              <div className="inputGroup">
+                                <input
+                                  required
+                                  type="text"
+                                  name="text"
+                                  autoComplete="off"
+                                  className="createInput"
+                                />
+                                <label className="user-label">Full Name</label>
+                              </div>
+                            </div>
+                            <div className="col-lg-6 mt-3">
+                              <div className="inputGroup">
+                                <input
+                                  required
+                                  type="text"
+                                  name="text"
+                                  autoComplete="off"
+                                  className="createInput"
+                                />
+                                <label className="user-label">Email</label>
+                              </div>
+                            </div>
+                            <div className="col-lg-6 mt-3">
+                              <div className="inputGroup">
+                                <input
+                                  required
+                                  type="text"
+                                  name="text"
+                                  autoComplete="off"
+                                  className="createInput"
+                                />
+                                <label className="user-label">City</label>
+                              </div>
+                            </div>
+                            <div className="col-lg-6 mt-3">
+                              <div className="inputGroup">
+                                <input
+                                  required
+                                  type="text"
+                                  name="text"
+                                  autoComplete="off"
+                                  className="createInput"
+                                />
+                                <label className="user-label">State</label>
+                              </div>
+                            </div>
+                            <div className="col-12 centerit mt-3">
+                              <button className="commonBtn">
+                                Change Details
+                              </button>
+                            </div>
+                          </form>
                         </div>
                       </TabPanel>
-                      <TabPanel className="tabEditor" id="addDesc">
+                      <TabPanel className="tabEditor" id="recentlyWatched">
                         <div className="container-fluid">
                           <div className="row">
                             <div className="col-12">
                               <div className="addHeading">
-                                <h4>Add Product About</h4>
+                                <h4>Product Enquiry List</h4>
                               </div>
                             </div>
                             <div className="statsTable">
@@ -164,138 +148,74 @@ export default function Page() {
                           </div>
                         </div>
                       </TabPanel>
-                      <TabPanel className="tabEditor">
+                      <TabPanel className="tabEditor" id="recentlyViewed">
                         <div className="container-fluid">
                           <div className="row">
                             <div className="col-12">
                               <div className="addHeading">
-                                <h4>Add Product About</h4>
+                                <h4>Recently Watched Products</h4>
                               </div>
                             </div>
-                            <div className="col-lg-3 mt-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Table Feature Points
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-9 mt-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Write Point Description
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-3 mt-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Table Feature Points
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-9 mt-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Write Point Description
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-3 mt-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Table Feature Points
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-9 mt-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Write Point Description
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-3 mt-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Table Feature Points
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-9 mt-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Write Point Description
-                                </label>
+                            <div className="col-12">
+                              <div className="recentlyMyDashboard">
+                                <Swiper
+                                  className="productAboutSlider"
+                                  pagination={true}
+                                  modules={[Pagination]}
+                                  breakpoints={{
+                                    640: {
+                                      slidesPerView: 2,
+                                      spaceBetween: 20,
+                                    },
+                                    768: {
+                                      slidesPerView: 3,
+                                      spaceBetween: 40,
+                                    },
+                                    1024: {
+                                      slidesPerView: 3,
+                                      spaceBetween: 50,
+                                    },
+                                  }}
+                                >
+                                  {products?.map((productItem, key) => (
+                                    <SwiperSlide key={key}>
+                                      <div className="productCard">
+                                        <div className="productImg">
+                                          <Image
+                                            src={`https://infrakeys-backend-production.up.railway.app${productItem.images}`}
+                                            height={150}
+                                            width={300}
+                                            alt={`${productItem.title} product | Infrakeys`}
+                                          />
+                                        </div>
+                                        <div className="productContent">
+                                          <Link href="/">
+                                            <h3>{productItem.title}</h3>
+                                          </Link>
+                                          <p>{productItem.about}... </p>
+                                          <Link
+                                            href={`/products/${productItem.title
+                                              .toLowerCase()
+                                              .split(" ")
+                                              .join("-")}/${productItem.id}`}
+                                          >
+                                            View Product
+                                          </Link>
+                                        </div>
+                                      </div>
+                                    </SwiperSlide>
+                                  ))}
+                                </Swiper>
                               </div>
                             </div>
                           </div>
                         </div>
                       </TabPanel>
-                      <TabPanel className="tabEditor">
+                      <TabPanel className="tabEditor" id="changePassword">
                         <div className="container-fluid">
-                          <div className="row">
-                            <div className="col-12">
-                              <div className="addHeading">
-                                <h4>Add Product About</h4>
-                              </div>
-                            </div>
-                            <div className="col-lg-6">
+                          <AdminHeading heading="Change Password" />
+                          <div className="col-lg-4  mt-2 mx-auto">
+                            <form action="">
                               <div className="inputGroup">
                                 <input
                                   required
@@ -304,154 +224,9 @@ export default function Page() {
                                   autoComplete="off"
                                   className="createInput"
                                 />
-                                <label className="user-label">
-                                  Product Name
-                                </label>
+                                <label className="user-label">Password</label>
                               </div>
-                            </div>
-                          </div>
-                          <div className="row">
-                            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
-                              <div className="industrySelect">
-                                <label htmlFor="industryCheck">
-                                  <div className="cardIndustry">
-                                    {/* <Image
-                                      src={industryImg}
-                                      width={40}
-                                      height={40}
-                                      alt="will chanbge later"
-                                    /> */}
-                                    <span>Construction</span>
-                                  </div>
-                                  <input type="checkbox" id="industryCheck" />
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
-                              <div className="industrySelect">
-                                <label htmlFor="industryCheck">
-                                  <div className="cardIndustry">
-                                    {/* <Image
-                                      src={industryImg}
-                                      width={40}
-                                      height={40}
-                                      alt="will chanbge later"
-                                    /> */}
-                                    <span>Construction</span>
-                                  </div>
-                                  <input type="checkbox" id="industryCheck" />
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
-                              <div className="industrySelect">
-                                <label htmlFor="industryCheck">
-                                  <div className="cardIndustry">
-                                    {/* <Image
-                                      src={industryImg}
-                                      width={40}
-                                      height={40}
-                                      alt="will chanbge later"
-                                    /> */}
-                                    <span>Construction</span>
-                                  </div>
-                                  <input type="checkbox" id="industryCheck" />
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
-                              <div className="industrySelect">
-                                <label htmlFor="industryCheck">
-                                  <div className="cardIndustry">
-                                    {/* <Image
-                                      src={industryImg}
-                                      width={40}
-                                      height={40}
-                                      alt="will chanbge later"
-                                    /> */}
-                                    <span>Construction</span>
-                                  </div>
-                                  <input type="checkbox" id="industryCheck" />
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
-                              <div className="industrySelect">
-                                <label htmlFor="industryCheck">
-                                  <div className="cardIndustry">
-                                    {/* <Image
-                                      src={industryImg}
-                                      width={40}
-                                      height={40}
-                                      alt="will chanbge later"
-                                    /> */}
-                                    <span>Construction</span>
-                                  </div>
-                                  <input type="checkbox" id="industryCheck" />
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
-                              <div className="industrySelect">
-                                <label htmlFor="industryCheck">
-                                  <div className="cardIndustry">
-                                    {/* <Image
-                                      src={industryImg}
-                                      width={40}
-                                      height={40}
-                                      alt="will chanbge later"
-                                    /> */}
-                                    <span>Construction</span>
-                                  </div>
-                                  <input type="checkbox" id="industryCheck" />
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
-                              <div className="industrySelect">
-                                <label htmlFor="industryCheck">
-                                  <div className="cardIndustry">
-                                    {/* <Image
-                                      src={industryImg}
-                                      width={40}
-                                      height={40}
-                                      alt="will chanbge later"
-                                    /> */}
-                                    <span>Construction</span>
-                                  </div>
-                                  <input type="checkbox" id="industryCheck" />
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-2 col-md-3 col-sm-4 col-6">
-                              <div className="industrySelect">
-                                <label htmlFor="industryCheck">
-                                  <div className="cardIndustry">
-                                    {/* <Image
-                                      src={industryImg}
-                                      width={40}
-                                      height={40}
-                                      alt="will chanbge later"
-                                    /> */}
-                                    <span>Construction</span>
-                                  </div>
-                                  <input type="checkbox" id="industryCheck" />
-                                </label>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </TabPanel>
-                      <TabPanel className="tabEditor">
-                        <div className="container-fluid">
-                          <div className="row">
-                            <div className="col-12">
-                              <div className="addHeading">
-                                <h4>Add Product About</h4>
-                              </div>
-                            </div>
-                            <div className="col-lg-6">
-                              <div className="inputGroup">
+                              <div className="inputGroup mt-3">
                                 <input
                                   required
                                   type="text"
@@ -460,38 +235,13 @@ export default function Page() {
                                   className="createInput"
                                 />
                                 <label className="user-label">
-                                  Product Name
+                                  Re-enter Password
                                 </label>
                               </div>
-                            </div>
-                            <div className="col-lg-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Product Name
-                                </label>
-                              </div>
-                            </div>
-                            <div className="col-lg-3">
-                              <div className="inputGroup">
-                                <input
-                                  required
-                                  type="text"
-                                  name="text"
-                                  autoComplete="off"
-                                  className="createInput"
-                                />
-                                <label className="user-label">
-                                  Product Name
-                                </label>
-                              </div>
-                            </div>
+                              <button className="commonBtn mt-3 mx-auto">
+                                Change Password
+                              </button>
+                            </form>
                           </div>
                         </div>
                       </TabPanel>

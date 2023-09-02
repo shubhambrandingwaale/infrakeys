@@ -1,7 +1,7 @@
 import axios from "axios"
 
-export const BASE_URL = "https://infrakeys-backend-production.up.railway.app"
+export const BASE_URL = "http://62.72.59.14/api"
 export const publicRequest = axios.create({
-    baseURL: "https://infrakeys-backend-production.up.railway.app/api"
+    baseURL: BASE_URL
 })
 
