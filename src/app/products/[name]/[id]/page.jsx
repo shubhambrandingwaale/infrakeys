@@ -14,6 +14,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import Image from "next/image";
 import { getCookie } from "@/utils/getCookie";
+import { toast } from "react-hot-toast";
+import Link from "next/link";
+import { RxCross1 } from "react-icons/rx";
 
 // export async function generateStaticParams() {
 //   const products = await publicRequest.get(`/products`).then((res) => res.data);
@@ -29,6 +32,8 @@ import { getCookie } from "@/utils/getCookie";
 
 export default function Page({ params: { id } }) {
   // console.log(id);
+  const [relatedProducts, setRelatedProducts] = useState([]);
+  const [recentltViewed, setRecentltViewed] = useState([]);
   const [product, setProduct] = useState({});
   const [applications, setApplications] = useState([]);
   const [features, setFeatures] = useState([]);
@@ -36,15 +41,56 @@ export default function Page({ params: { id } }) {
   const [productUsedBy, setProductUsedBy] = useState([]);
   // console.log(product);
 
+  async function handleRaiseEnquiry(productId, userId) {
+    if (!getCookie("token")) {
+      return toast((t) => (
+        <span className="w300">
+          <div className="d-flex justify-content-between">
+            <h4>Please login first</h4>
+            <button
+              className="mb-3 deleteBtn"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              <RxCross1 />
+            </button>
+          </div>
+          <br />
+          <Link className="commonBtn" href={"/login"}>
+            Go to login
+          </Link>
+        </span>
+      ));
+    }
+    try {
+      const resp = await publicRequest.post(
+        "/product-queries",
+        { productId, userId },
+        {
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getCookie("token") &&
       (async function (id) {
         console.log("productId");
         try {
-          const resp = await publicRequest.post("/view-product", {
-            productId: id,
-            userId: getCookie("user_id"),
-          });
+          const resp = await publicRequest.post(
+            "/view-product",
+            {
+              productId: id,
+              userId: getCookie("user_id"),
+            },
+            {
+              headers: { Authorization: `Bearer ${getCookie("token")}` },
+            }
+          );
         } catch (error) {
           console.log(error);
         }
@@ -99,11 +145,40 @@ export default function Page({ params: { id } }) {
       try {
         const resp = await publicRequest.get(`/product-used-by/products/${id}`);
         setProductUsedBy(resp.data);
-        // console.log("product-used-by", resp.data);
       } catch (error) {
         console.log(error);
       }
     })();
+  }, [id]);
+
+  useEffect(() => {
+    (async function () {
+      try {
+        const resp = await publicRequest.get(
+          `/products/related-products/${product.sub_category_id}`
+        );
+        setRelatedProducts(resp.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, [product.sub_category_id]);
+
+  useEffect(() => {
+    async function fetchRecentlyViewed(id) {
+      try {
+        const resp = await publicRequest.get(`/recently-viewed/${id}`, {
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+          },
+        });
+        setRecentltViewed(resp.data);
+        console.log("recent", resp.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchRecentlyViewed(getCookie("user_id"));
   }, [id]);
 
   return (
@@ -125,7 +200,7 @@ export default function Page({ params: { id } }) {
                         <SwiperSlide key={key}>
                           <div className="productSlides">
                             <Image
-                              src={`https:/infrakeys-backend-production.up.railway.app${image}`}
+                              src={`https:/infrakeysapp.in${image}`}
                               height={500}
                               width={800}
                               alt="shubs"
@@ -142,9 +217,15 @@ export default function Page({ params: { id } }) {
             <div className="col-md-7">
               <div className="productPage">
                 <h1>{product?.title}</h1>
-                <span className="infoCategories">sdf</span>
                 <p>{product?.about}</p>
-                <button className="commonBtn">defrgbhfbgvdcs</button>
+                <button
+                  className="commonBtn"
+                  onClick={() =>
+                    handleRaiseEnquiry(product.id, getCookie("user_id"))
+                  }
+                >
+                  Raise Enquiry
+                </button>
               </div>
             </div>
           </div>
@@ -156,9 +237,13 @@ export default function Page({ params: { id } }) {
           <div className="row">
             <div className="col-12">
               <div className="descList">
-                <ul>
+                <ul className="p-3">
                   {descriptions?.map((item) => {
-                    return <li key={item.id}>{item.description}</li>;
+                    return (
+                      <li className="lsn" key={item.id}>
+                        {item.description}
+                      </li>
+                    );
                   })}
                 </ul>
               </div>
@@ -205,9 +290,13 @@ export default function Page({ params: { id } }) {
           <div className="row">
             <div className="col-12">
               <div className="applicationBox">
-                <ul>
+                <ul className="p-3">
                   {applications?.map((item) => {
-                    return <li key={item.id}>{item.application}</li>;
+                    return (
+                      <li className="lsn" key={item.id}>
+                        {item.application}
+                      </li>
+                    );
                   })}
                 </ul>
               </div>
@@ -219,7 +308,61 @@ export default function Page({ params: { id } }) {
         <div className="container-fluid">
           <CenterAttachheading heading="Related Products" />
           <div className="row">
-            <div className="col-12"></div>
+            <div className="col-12">
+              <Swiper
+                className="relatedProducts"
+                pagination={true}
+                modules={[Pagination]}
+                breakpoints={{
+                  640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                  },
+                  1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                  },
+                }}
+              >
+                {relatedProducts?.map((productItem, key) => (
+                  <SwiperSlide key={key}>
+                    <div className="productCard">
+                      <div className="productImg">
+                        <Image
+                          src={`https://infrakeysapp.in${productItem.images}`}
+                          height={150}
+                          width={300}
+                          alt={`${productItem.title} product | Infrakeys`}
+                        />
+                      </div>
+                      <div className="productContent">
+                        <Link
+                          href={`/products/${productItem.title
+                            .toLowerCase()
+                            .split(" ")
+                            .join("-")}/${productItem.id}`}
+                        >
+                          <h3>{productItem.title}</h3>
+                        </Link>
+
+                        <Link
+                          href={`/products/${productItem.title
+                            .toLowerCase()
+                            .split(" ")
+                            .join("-")}/${productItem.id}`}
+                        >
+                          View Product
+                        </Link>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
         </div>
       </section>
@@ -228,7 +371,60 @@ export default function Page({ params: { id } }) {
         <div className="container-fluid">
           <CenterAttachheading heading="Recently Viewed Products" />
           <div className="row">
-            <div className="col-12"></div>
+            <div className="col-12">
+              <Swiper
+                className="productAboutSlider"
+                pagination={true}
+                modules={[Pagination]}
+                breakpoints={{
+                  640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20,
+                  },
+                  768: {
+                    slidesPerView: 3,
+                    spaceBetween: 40,
+                  },
+                  1024: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                  },
+                }}
+              >
+                {recentltViewed?.map((productItem, key) => (
+                  <SwiperSlide key={key}>
+                    <div className="productCard">
+                      <div className="productImg">
+                        <Image
+                          src={`https://infrakeysapp.in${productItem.images}`}
+                          height={150}
+                          width={300}
+                          alt={`${productItem.title} product | Infrakeys`}
+                        />
+                      </div>
+                      <div className="productContent">
+                        <Link
+                          href={`/products/${productItem.title
+                            .toLowerCase()
+                            .split(" ")
+                            .join("-")}/${productItem.id}`}
+                        >
+                          <h3>{productItem.title}</h3>
+                        </Link>
+                        <Link
+                          href={`/products/${productItem.title
+                            .toLowerCase()
+                            .split(" ")
+                            .join("-")}/${productItem.id}`}
+                        >
+                          View Product
+                        </Link>
+                      </div>
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
           </div>
         </div>
       </section>

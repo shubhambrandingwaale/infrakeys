@@ -43,9 +43,9 @@ export default function Page({ params: { categoryId } }) {
                         .join("-")}/${subcategory.id}`}
                     >
                       <Image
-                        src={`https://infrakeys-backend-production.up.railway.app${subcategory.image_url}`}
+                        src={`https://infrakeysapp.in${subcategory.image_url}`}
                         alt={`${subcategory.name} | Sub Category | Infrakeys`}
-                        width={100}
+                        width={150}
                         height={100}
                       />
                       <span>{subcategory.name}</span>

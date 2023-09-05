@@ -1,22 +1,64 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { FiUser } from "react-icons/fi";
+import { FiLogOut, FiUser } from "react-icons/fi";
 import { BsBag, BsReceipt, BsSearch, BsWhatsapp } from "react-icons/bs";
 import { PiHandsPraying } from "react-icons/pi";
 import Link from "next/link";
+import { MdOutlineDashboard } from "react-icons/md";
+import { publicRequest } from "@/libs/requestMethods";
+import { useRouter } from "next/navigation";
+import { getCookie } from "@/utils/getCookie";
 export default function Header() {
-  const [validInput, setValidInput] = useState("");
+  const router = useRouter();
   const [userClicked, setUserClicked] = useState("");
-  const handleInputChange = (event) => {
-    // comment
-    const inputValue = event.target.value;
-    setValidInput(inputValue);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const debounce = (func, delay) => {
+    let timerId;
+    return function (...args) {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+      timerId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
   };
-  const isInputValid = validInput.trim() !== "";
+  // Create a debounced version of the search function with a 500ms delay
+  const debouncedSearchFunction = debounce((searchTerm) => {
+    setDebouncedSearch(searchTerm);
+    // You can perform your search or other action here
+  }, 500);
+  const handleInputChange = (e) => {
+    const newSearchTerm = e.target.value;
+    setSearchTerm(newSearchTerm);
+    debouncedSearchFunction(newSearchTerm);
+  };
+  const isInputValid = searchTerm.trim() !== "";
   const barHideShow = () => {
     setUserClicked(!userClicked);
   };
+
+  useEffect(() => {
+    // Make the API request when the debouncedSearch term changes
+    if (debouncedSearch) {
+      publicRequest
+        .get(`/search?q=${debouncedSearch}`)
+        .then((response) => {
+          setSearchResults(response.data);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    } else {
+      // Clear search results if debouncedSearch is empty
+      setSearchResults([]);
+    }
+  }, [debouncedSearch]);
+
   return (
     <>
       <header>
@@ -34,9 +76,10 @@ export default function Header() {
           <div className="searchBar">
             <form>
               <input
+                title="Search Products"
                 type="text"
                 placeholder="Search Products"
-                value={validInput}
+                value={searchTerm}
                 onChange={handleInputChange}
               />
               <button>
@@ -46,18 +89,28 @@ export default function Header() {
             {isInputValid && (
               <div className="searchList">
                 <ul>
-                  <li>
-                    <Link href="/" title="TMT Sariya Bars | Steel and Iron">
-                      <div className="searchLink">
-                        <span title="steel and Iron" className="categoryBadge">
-                          Steel and Iron
-                        </span>
-                        <span title="TMT Sariya Bars" className="searchName">
-                          TMT Sariya Bars
-                        </span>
-                      </div>
-                    </Link>
-                  </li>
+                  {searchResults?.map((item, key) => {
+                    return (
+                      <li key={key}>
+                        <Link
+                          href={`/products/${item.title
+                            .toLowerCase()
+                            .split(" ")
+                            .join("-")}/${item.id}`}
+                          title={item.title}
+                        >
+                          <div className="searchLink">
+                            <span
+                              title="TMT Sariya Bars"
+                              className="searchName"
+                            >
+                              {item.title}
+                            </span>
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               </div>
             )}
@@ -76,39 +129,68 @@ export default function Header() {
           </div>
           <div className="userView">
             <button onClick={barHideShow} className="username">
-              Hello
-              <PiHandsPraying />
-              &nbsp;
-              <span>Shubham Solanki</span>
+              {getCookie("token") ? (
+                <>
+                  Hello
+                  <PiHandsPraying />
+                  &nbsp;
+                  <span>{getCookie("user_fullname")}</span>
+                </>
+              ) : (
+                <>Login / Signup</>
+              )}
             </button>
-            {userClicked ? (
+            {userClicked && (
               <div className="userminiPanel">
-                <div className="userInfo">
-                  <div className="circleUser">
-                    <FiUser />
-                    <div className="contact">
-                      <h6>Shubham Solanki</h6>
-                      <span>example@gmail.com</span>
+                {getCookie("token") ? (
+                  <>
+                    <div className="userInfo">
+                      <div className="circleUser">
+                        <FiUser />
+                        <div className="contact">
+                          <h6>{getCookie("user_fullname")}</h6>
+                          <span>{getCookie("user_email")}</span>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <ul>
-                  <li>
-                    <Link href="/my-dashboard">
-                      <BsBag />
-                      My Dashboard
+                    <ul>
+                      <li>
+                        <Link href="/my-dashboard">
+                          <MdOutlineDashboard />
+                          My Dashboard
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => {
+                            document.cookie.split(";").forEach(function (c) {
+                              document.cookie = c
+                                .replace(/^ +/, "")
+                                .replace(
+                                  /=.*/,
+                                  "=;expires=" +
+                                    new Date().toUTCString() +
+                                    ";path=/"
+                                );
+                            });
+                            router.push("/login");
+                          }}
+                        >
+                          <FiLogOut />
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
+                  </>
+                ) : (
+                  <>
+                    <h4 className="mb-3">Please Login First</h4>
+                    <Link className="commonBtn w-auto" href={"/login"}>
+                      Login
                     </Link>
-                  </li>
-                  <li>
-                    <Link href="/">
-                      <BsBag />
-                      Logout
-                    </Link>
-                  </li>
-                </ul>
+                  </>
+                )}
               </div>
-            ) : (
-              ""
             )}
           </div>
         </div>

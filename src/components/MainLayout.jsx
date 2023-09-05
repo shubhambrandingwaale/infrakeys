@@ -9,14 +9,16 @@ import { usePathname } from "next/navigation";
 export default function MainLayout({ children }) {
   const pathname = usePathname();
   const isAdminPage = pathname.startsWith("/admin");
+  const register = pathname.startsWith("/login");
+  const login = pathname.startsWith("/register");
   console.log(pathname);
   return (
     <html lang="en">
       <body>
         <LoginPopup />
-        {!isAdminPage && <Header />}
+        {!isAdminPage && !register && !login && <Header />}
         {children}
-        {!isAdminPage && <Footer />}
+        {!isAdminPage && !register && !login && <Footer />}
         <Toaster />
       </body>
     </html>

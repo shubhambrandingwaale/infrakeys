@@ -11,10 +11,14 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
   async function handleFormFeatures(e) {
     e.preventDefault();
     try {
-      const resp = await publicRequest.post("/product-features", {
-        features: features,
-        product_id: productId,
-      });
+      const resp = await publicRequest.post(
+        "/product-features",
+        {
+          features: features,
+          product_id: productId,
+        },
+        { headers: { Authorization: `Bearer ${getCookie("token")}` } }
+      );
       if (resp.status === 200) {
         toast.success("features added successfully.");
       }
@@ -32,10 +36,14 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
       return toast.error("please fill the feature description!");
     }
 
-    const resp = await publicRequest.post("/product-features", {
-      features: [{ title: inputs.featureTitle, feature: inputs.featureDesc }],
-      product_id: productId,
-    });
+    const resp = await publicRequest.post(
+      "/product-features",
+      {
+        features: [{ title: inputs.featureTitle, feature: inputs.featureDesc }],
+        product_id: productId,
+      },
+      { headers: { Authorization: `Bearer ${getCookie("token")}` } }
+    );
     console.log(resp.data);
     if (resp.status === 200) {
       toast.success("Feature added successfully.");
@@ -60,7 +68,9 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
   }, [productId]);
 
   async function handleFeatureDelete(id) {
-    const resp = await publicRequest.delete(`/product-features/${id}`);
+    const resp = await publicRequest.delete(`/product-features/${id}`, {
+      headers: { Authorization: `Bearer ${getCookie("token")}` },
+    });
     if (resp.status === 200) {
       toast.success("Feature deleted successfully.");
       setFeatures((prev) => prev.filter((item) => item.id !== id));

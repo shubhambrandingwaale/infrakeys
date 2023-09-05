@@ -38,6 +38,7 @@ export default function AddProductAbout({
       const resp = await publicRequest.put(`/products/${productId}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getCookie("token")}`,
         },
       });
       if (resp.status === 200) {
@@ -86,7 +87,7 @@ export default function AddProductAbout({
       const ids = subCategoriesArr?.data.map((item) => item.id);
       setSubCategories((prev) => prev.filter((item) => ids.includes(item.id)));
     })();
-  }, [ProductId]);
+  }, [productId]);
 
   return (
     <div className="container-fluid">

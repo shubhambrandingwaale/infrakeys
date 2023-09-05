@@ -12,10 +12,14 @@ export default function AddDesc({ productId, inputs, setInputs }) {
   async function handleFormDesc(e) {
     e.preventDefault();
     try {
-      const resp = await publicRequest.post("/product-descriptions", {
-        descriptions: descriptions,
-        product_id: productId,
-      });
+      const resp = await publicRequest.post(
+        "/product-descriptions",
+        {
+          descriptions: descriptions,
+          product_id: productId,
+        },
+        { headers: { Authorization: `Bearer ${getCookie("token")}` } }
+      );
       if (resp.status === 200) {
         toast.success("descriptions added successfully.");
       }
@@ -30,10 +34,14 @@ export default function AddDesc({ productId, inputs, setInputs }) {
       return toast.error("Input can't be empty!");
     }
 
-    const resp = await publicRequest.post(`/product-descriptions`, {
-      descriptions: [inputs.description],
-      product_id: productId,
-    });
+    const resp = await publicRequest.post(
+      `/product-descriptions`,
+      {
+        descriptions: [inputs.description],
+        product_id: productId,
+      },
+      { headers: { Authorization: `Bearer ${getCookie("token")}` } }
+    );
     console.log(resp.data.descriptions[0]);
     if (resp.status === 200) {
       toast.success("description added successfully");
@@ -58,7 +66,9 @@ export default function AddDesc({ productId, inputs, setInputs }) {
   }, [productId]);
 
   async function handleDescDelete(id) {
-    const resp = await publicRequest.delete(`/product-descriptions/${id}`);
+    const resp = await publicRequest.delete(`/product-descriptions/${id}`, {
+      headers: { Authorization: `Bearer ${getCookie("token")}` },
+    });
     if (resp.status === 200) {
       toast.success("Desc deleted successfully.");
       setDescriptions((prev) => prev.filter((item) => item.id !== id));

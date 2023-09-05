@@ -4,6 +4,7 @@ import { publicRequest } from "@/libs/requestMethods";
 import { toast } from "react-hot-toast";
 import { AiFillDelete } from "react-icons/ai";
 import Image from "next/image";
+import { getCookie } from "@/utils/getCookie";
 
 export default function AddUsedby({ productId }) {
   const [options, setOptions] = useState([]);
@@ -47,10 +48,16 @@ export default function AddUsedby({ productId }) {
   async function handleFormSubmit(e) {
     e.preventDefault();
     try {
-      const resp = await publicRequest.post(`/product-used-by`, {
-        data: selectedItems,
-        product_id: productId,
-      });
+      const resp = await publicRequest.post(
+        `/product-used-by`,
+        {
+          data: selectedItems,
+          product_id: productId,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        }
+      );
       if (resp.status === 200) {
         toast.success("Industries added to this Product");
       }

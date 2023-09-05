@@ -1,5 +1,6 @@
 "use client";
 import { publicRequest } from "@/libs/requestMethods";
+import { getCookie } from "@/utils/getCookie";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -28,11 +29,12 @@ export default function Page() {
     const resp = await publicRequest.post("/categories", formData, {
       headers: {
         "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${getCookie("token")}`,
       },
     });
     if (resp.status === 200) {
       toast.success("Category Added Successfully");
-      router.push("/admin/categories");
+      router.push("/admin");
     } else {
       toast.error(response.error);
     }

@@ -10,10 +10,7 @@ export default function ProductBread(props) {
           <Link href="/">Home</Link>
         </li>
         <li>
-          <Link href="/">Category Name</Link>
-        </li>
-        <li>
-          <Link href="/">Sub Category Name</Link>
+          <Link href="/products">Products</Link>
         </li>
         <li>
           <Link href="/">{props.name}</Link>

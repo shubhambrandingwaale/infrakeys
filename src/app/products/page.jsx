@@ -5,6 +5,7 @@ import { publicRequest } from "@/libs/requestMethods";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { BsChevronRight } from "react-icons/bs";
 
 export default function Page() {
   const [products, setProducts] = useState([]);
@@ -31,26 +32,38 @@ export default function Page() {
                   <div className="productCard">
                     <div className="productImg">
                       <Image
-                        src={`https://infrakeys-backend-production.up.railway.app${product?.images[0]}`}
+                        src={`https://infrakeysapp.in${product?.images[0]}`}
                         height={150}
                         width={300}
                         alt={`${product?.title} Products | Infrakeys`}
                       />
                     </div>
                     <div className="productContent">
-                      <Link href="/">
-                        <h3>{product?.title}</h3>
-                      </Link>
-                      <p>{product?.about}... </p>
                       <Link
                         href={`/products/${product?.title
                           .toLowerCase()
                           .split(" ")
                           .join("-")}/${product?.id}`}
                       >
-                        View Product
+                        <h3>{product?.title}</h3>
                       </Link>
+                      <p>
+                        {product.about.length > 150
+                          ? product.about.substring(0, 150) + "..."
+                          : product.about}{" "}
+                      </p>
                     </div>
+                    <Link
+                      title="View More"
+                      className="viewMore"
+                      href={`/products/${product?.title
+                        .toLowerCase()
+                        .split(" ")
+                        .join("-")}/${product?.id}`}
+                    >
+                      View Product
+                      <BsChevronRight />
+                    </Link>
                   </div>
                 </div>
               );

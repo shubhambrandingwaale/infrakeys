@@ -42,7 +42,7 @@ export default function HeroSlider() {
                   title={slide.name}
                 >
                   <Image
-                    src={`https://infrakeys-backend-production.up.railway.app${slide.banner_url}`}
+                    src={`https://infrakeysapp.in${slide.banner_url}`}
                     width={720}
                     alt={`${slide.name} | Home Screen Banners | Infrakeys`}
                     height={300}

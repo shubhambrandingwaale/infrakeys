@@ -4,6 +4,7 @@ import { publicRequest } from "@/libs/requestMethods";
 import { toast } from "react-hot-toast";
 import { AiFillDelete } from "react-icons/ai";
 import Image from "next/image";
+import { getCookie } from "@/utils/getCookie";
 
 export default function AddUsedby({ productId }) {
   const [options, setOptions] = useState([]);
@@ -42,7 +43,8 @@ export default function AddUsedby({ productId }) {
 
   const handleRemoveItem = async (itemToRemove) => {
     const resp = await publicRequest.delete(
-      `/product-used-by/${JSON.parse(itemToRemove).id}`
+      `/product-used-by/${JSON.parse(itemToRemove).id}`,
+      { headers: { Authorization: `Bearer ${getCookie("token")}` } }
     );
     if (resp.status === 200) {
       toast.success("Deleted successfully.");
@@ -57,10 +59,14 @@ export default function AddUsedby({ productId }) {
   async function handleFormSubmit(e) {
     e.preventDefault();
     try {
-      const resp = await publicRequest.post(`/product-used-by`, {
-        data: selectedItems,
-        product_id: productId,
-      });
+      const resp = await publicRequest.post(
+        `/product-used-by`,
+        {
+          data: selectedItems,
+          product_id: productId,
+        },
+        { headers: { Authorization: `Bearer ${getCookie("token")}` } }
+      );
       if (resp.status === 200) {
         toast.success("Industries added to this Product");
       }
@@ -115,7 +121,7 @@ export default function AddUsedby({ productId }) {
                 src={item.image}
                 width={40}
                 height={40}
-                alt="will change later"
+                alt={`${item.title} | Industries by Infrakeys Products`}
               />
               <span>{item.title}</span>
 

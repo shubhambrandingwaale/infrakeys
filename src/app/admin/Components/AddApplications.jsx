@@ -4,15 +4,22 @@ import { AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
 import AdminHeading from "./AdminHeading";
 import { toast } from "react-hot-toast";
 import { publicRequest } from "@/libs/requestMethods";
+import { getCookie } from "@/utils/getCookie";
 export default function AddApplications({ productId, inputs, setInputs }) {
   const [applications, setApplications] = useState([]);
   async function handleFormApplications(e) {
     e.preventDefault();
     try {
-      const resp = await publicRequest.post("/product-applications", {
-        applications: applications,
-        product_id: productId,
-      });
+      const resp = await publicRequest.post(
+        "/product-applications",
+        {
+          applications: applications,
+          product_id: productId,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        }
+      );
       if (resp.status === 200) {
         toast.success("Product Applications Added Successfully");
       }

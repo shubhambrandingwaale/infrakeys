@@ -9,10 +9,16 @@ export default function AddApplications({ productId, inputs, setInputs }) {
   async function handleFormApplications(e) {
     e.preventDefault();
     try {
-      const resp = await publicRequest.post("/product-applications", {
-        applications: applications,
-        product_id: productId,
-      });
+      const resp = await publicRequest.post(
+        "/product-applications",
+        {
+          applications: applications,
+          product_id: productId,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        }
+      );
       if (resp.status === 200) {
         toast.success("Product Applications Added Successfully");
       }
@@ -51,10 +57,16 @@ export default function AddApplications({ productId, inputs, setInputs }) {
       return toast.error("please fill the input!");
     }
 
-    const resp = await publicRequest.post("/product-applications", {
-      applications: [inputs.applicationText],
-      product_id: productId,
-    });
+    const resp = await publicRequest.post(
+      "/product-applications",
+      {
+        applications: [inputs.applicationText],
+        product_id: productId,
+      },
+      {
+        headers: { Authorization: `Bearer ${getCookie("token")}` },
+      }
+    );
     console.log(resp.data);
     if (resp.status === 200) {
       toast.success("Application added successfully.");
@@ -69,7 +81,9 @@ export default function AddApplications({ productId, inputs, setInputs }) {
   }
 
   async function handleApplicationDelete(id) {
-    const resp = await publicRequest.delete(`/product-applications/${id}`);
+    const resp = await publicRequest.delete(`/product-applications/${id}`, {
+      headers: { Authorization: `Bearer ${getCookie("token")}` },
+    });
     if (resp.status === 200) {
       toast.success("Application deleted successfully.");
       setApplications((prev) => prev.filter((item) => item.id !== id));
@@ -110,7 +124,7 @@ export default function AddApplications({ productId, inputs, setInputs }) {
         </div>
         <div className="row">
           <div className="col-lg-11 mt-3">
-            <ul className="pointList">
+            <ul className="pointList lsn">
               {applications?.map((item, key) => {
                 return (
                   <li key={key} className="lsn">

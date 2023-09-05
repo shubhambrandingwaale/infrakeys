@@ -1,5 +1,6 @@
 "use client";
 import { publicRequest } from "@/libs/requestMethods";
+import { getCookie } from "@/utils/getCookie";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
@@ -35,10 +36,11 @@ export default function AddProductAbout({
       const resp = await publicRequest.post("/products", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getCookie("token")}`,
         },
       });
       if (resp.status === 200) {
-        toast.success("features added successfully.");
+        toast.success("Product About added successfully.");
         setProductId(resp.data.id);
       }
 
@@ -87,7 +89,6 @@ export default function AddProductAbout({
         <div className="col-lg-5">
           <div className="inputGroup">
             <input
-              required
               type="text"
               name="title"
               autoComplete="off"

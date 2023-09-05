@@ -3,8 +3,11 @@ import React, { useRef, useState } from "react";
 import { publicRequest } from "@/libs/requestMethods";
 import { toast } from "react-hot-toast";
 import AdminHeading from "@/app/admin/Components/AdminHeading";
+import { getCookie } from "@/utils/getCookie";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const [image, setImage] = useState({});
   const inputRef = useRef();
   async function handleFormSubmit(e) {
@@ -25,10 +28,12 @@ export default function Page() {
       const resp = await publicRequest.post("/industries", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getCookie("token")}`,
         },
       });
       if (resp.status === 200) {
         toast.success("New Industry added Successfully");
+        router.push("/admin/products/industries");
       }
       console.log(resp.data);
     } catch (error) {

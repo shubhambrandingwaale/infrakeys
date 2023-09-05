@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { publicRequest } from "@/libs/requestMethods";
 import { toast } from "react-hot-toast";
 import { AiOutlineDelete } from "react-icons/ai";
+import { getCookie } from "@/utils/getCookie";
 
 export default function Page() {
   const [heroslides, setHeroslides] = useState([]);
@@ -12,7 +13,9 @@ export default function Page() {
     try {
       const confirmation = confirm("Are you sure you want to delete?");
       if (confirmation) {
-        const resp = await publicRequest.delete(`/banners/${id}`);
+        const resp = await publicRequest.delete(`/banners/${id}`, {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        });
         if (resp.status === 200) {
           toast.success("Banner deleted succesfully.");
           setHeroslides((prev) => prev.filter((item) => item.id !== id));
@@ -45,7 +48,7 @@ export default function Page() {
               <div key={item.id} className="col-lg-4 col-sm-6">
                 <div className="bannerCard">
                   <Image
-                    src={`https://infrakeys-backend-production.up.railway.app${item.banner_url}`}
+                    src={`https://infrakeysapp.in${item.banner_url}`}
                     height={300}
                     width={500}
                     alt="Banners of Image"

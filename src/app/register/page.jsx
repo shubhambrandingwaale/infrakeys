@@ -1,16 +1,26 @@
 "use client";
 import CenterHeading from "@/components/CenterHeading";
 import { publicRequest } from "@/libs/requestMethods";
+import { getCookie } from "@/utils/getCookie";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 
 export default function Page() {
+  const router = useRouter();
+  if (getCookie("token")) {
+    if (getCookie("role") === "user") {
+      return router.push("/");
+    } else {
+      return router.push("/admin");
+    }
+  }
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [inputVals, setInputVals] = useState({
     fullname: "",
     email: "",
     password: "",
+    phone: "",
     city: "",
     state: "",
   });
@@ -21,7 +31,16 @@ export default function Page() {
       const resp = await publicRequest.post(`/auth/register`, { ...inputVals });
       if (resp.status === 200) {
         toast.success("You registered successfully.");
-        router.push("/login");
+        document.cookie = `token=${resp.data.access_token}; path="/"`;
+        document.cookie = `user_fullname=${resp.data.user.fullname}; path="/"`;
+        document.cookie = `user_email=${resp.data.user.email}; path="/"`;
+        document.cookie = `user_id=${resp.data.user.id}; path="/"`;
+        document.cookie = `user_role=${resp.data.user.role}; path="/"`;
+        if (resp.data.user.role === "user") {
+          router.push("/");
+        } else {
+          router.push("/admin");
+        }
       }
       console.log(resp.data);
     } catch (error) {
@@ -53,6 +72,17 @@ export default function Page() {
                     type="text"
                     placeholder="Email"
                     name="email"
+                    onChange={(e) => {
+                      setInputVals((prev) => ({
+                        ...prev,
+                        [e.target.name]: e.target.value,
+                      }));
+                    }}
+                  />
+                  <input
+                    type="tel"
+                    placeholder="Contact Number"
+                    name="phone"
                     onChange={(e) => {
                       setInputVals((prev) => ({
                         ...prev,

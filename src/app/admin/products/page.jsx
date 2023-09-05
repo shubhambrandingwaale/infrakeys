@@ -1,5 +1,6 @@
 "use client";
 import { publicRequest } from "@/libs/requestMethods";
+import { getCookie } from "@/utils/getCookie";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -16,7 +17,9 @@ export default function Page() {
     try {
       const confirmation = confirm("Are you sure you want to delete?");
       if (confirmation) {
-        const resp = await publicRequest.delete(`/products/${id}`);
+        const resp = await publicRequest.delete(`/products/${id}`, {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        });
         if (resp.status === 200) {
           toast.success(resp.data.message);
           setProducts((prev) => prev.filter((product) => product.id !== id));
@@ -37,7 +40,7 @@ export default function Page() {
 
   return (
     <>
-      <section className="viewSection">
+      <section className="viewSection mt-3">
         <div className="container-fluid">
           <div className="statsTable">
             <div className="spcbtwn mb-3">

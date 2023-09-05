@@ -4,6 +4,7 @@ import AdminHeading from "./AdminHeading";
 import { AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { publicRequest } from "@/libs/requestMethods";
+import { getCookie } from "@/utils/getCookie";
 
 export default function AddFeatures({ productId, inputs, setInputs }) {
   const [features, setFeatures] = useState([]);
@@ -12,10 +13,16 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
   async function handleFormFeatures(e) {
     e.preventDefault();
     try {
-      const resp = await publicRequest.post("/product-features", {
-        features: features,
-        product_id: productId,
-      });
+      const resp = await publicRequest.post(
+        "/product-features",
+        {
+          features: features,
+          product_id: productId,
+        },
+        {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        }
+      );
       if (resp.status === 200) {
         toast.success("features added successfully.");
       }
@@ -54,7 +61,6 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
           <div className="col-lg-3 mt-3">
             <div className="inputGroup">
               <input
-                required
                 type="text"
                 name="featureTitle"
                 autoComplete="off"
@@ -73,7 +79,6 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
           <div className="col-lg-8 mt-3">
             <div className="inputGroup">
               <input
-                required
                 type="text"
                 name="featureDesc"
                 autoComplete="off"

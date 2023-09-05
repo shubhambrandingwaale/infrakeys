@@ -2,8 +2,12 @@
 import React, { useEffect, useState } from "react";
 import { publicRequest } from "@/libs/requestMethods";
 import Image from "next/image";
+import { getCookie } from "@/utils/getCookie";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+  const router = useRouter();
   const [image, setImage] = useState({ preview: "", data: "" });
   const [inputVals, setInputVals] = useState({
     categoryId: "",
@@ -15,7 +19,9 @@ export default function Page() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const resp = await publicRequest.get("/categories");
+        const resp = await publicRequest.get("/categories", {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        });
         setCategories(resp.data);
       } catch (error) {
         // Handle error
@@ -44,9 +50,14 @@ export default function Page() {
       const resp = await publicRequest.post("/banners", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${getCookie("token")}`,
         },
       });
       console.log(resp.data);
+      if (resp.status === 200) {
+        toast.success("Banner Created successfully");
+        router.push("/admin");
+      }
     } catch (error) {
       console.log(error);
     }

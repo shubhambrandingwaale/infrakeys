@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@500;800&display=swap");
-$primary: #291db2;
+$primary: #fb5001;
 $secondary: #5b5b5b;
-$lightColor: #efedff;
+$lightColor: #ffede4;
 $commonShadow: 0 7px 20px -10px #bdbdbd;
 $btnpadding: 5px 20px;
 $darkColor: #222;
@@ -9,11 +9,15 @@ $smooth: 0.4s ease-in-out;
 $white: #fff;
 $image3d: 0 5px 20px -10px #777;
 
+@font-face {
+  font-family: headingfont;
+  src: url(./headingfont.otf);
+}
 body {
   background: $lightColor;
   h2 {
     color: $primary;
-    font-family: "Inter", sans-serif;
+    font-family: headingfont;
     font-weight: 800;
     position: relative;
   }
@@ -48,36 +52,50 @@ body {
     gap: 20px;
 
     a.buysell {
-      background: $secondary;
-      color: $white;
+      color: $secondary;
+      background: $white;
       border-radius: 10px;
-      height: 45px;
-      border: 1px solid #0000;
+      height: 40px;
+      border: 1px solid $secondary;
       font-size: 16px;
-      padding: $btnpadding;
       position: relative;
       width: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
+      transition: $smooth;
+
+      &:hover {
+        color: #fff;
+        background: $secondary;
+        svg {
+          color: #fff;
+        }
+      }
 
       svg {
-        color: $white;
+        color: $secondary;
         font-size: 20px;
       }
     }
     a {
-      height: 45px;
-      width: 45px;
+      height: 40px;
+      width: 40px;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: #14c047;
-      font-size: 30px;
+      background: #fff;
+      font-size: 25px;
       border-radius: 10px;
-      border: 1px solid #0000;
-      color: $white;
+      border: 1px solid #14c047;
+      color: #14c047;
+      transition: $smooth;
+
+      &:hover {
+        color: #fff;
+        background: #14c047;
+      }
     }
   }
   .loginBtn {
@@ -85,7 +103,7 @@ body {
       background: $primary;
       color: $white;
       font-weight: 600;
-      border: 1px solid #0000;
+      border: 1px solid transparent;
       border-radius: 10px;
       height: 45px;
       width: 100px;
@@ -115,13 +133,26 @@ section.hero {
     flex-direction: column;
     img {
       border-radius: 10px;
-      box-shadow: $commonShadow;
-      width: 100px;
+      transition: $smooth;
+      padding: 5px;
+      border: 1px solid #ddd;
     }
     span {
       font-size: 20px;
       font-weight: 700;
       color: #444;
+      transition: $smooth;
+    }
+    &:hover {
+      img {
+        transform: scale(1.02) translateY(-2px);
+        box-shadow: $image3d;
+      }
+      span {
+        text-decoration: underline;
+        text-underline-offset: 8px;
+        text-decoration-color: $primary;
+      }
     }
   }
 }
@@ -134,8 +165,8 @@ section.commonSection {
   border: 1px solid #eee;
   box-shadow: 0 5px 10px -5px #ddd;
 }
-button.commonBtn {
-  background: #291db2;
+.commonBtn {
+  background: #fb5001;
   color: $white;
   font-weight: 600;
   border: 1px solid rgba(0, 0, 0, 0);
@@ -207,7 +238,7 @@ section.adminPanel {
 }
 .statsTable {
   padding: 20px;
-  background: #fff;
+  background: $white;
   border-radius: 20px;
   border: 1px solid #eee;
   table {
@@ -228,7 +259,7 @@ section.adminPanel {
     }
     tbody {
       tr:nth-child(odd) {
-        background: #fffcd8;
+        background: lightyellow;
       }
       tr {
         td {
@@ -250,7 +281,7 @@ button.deleteBtn {
   width: 40px;
   height: 40px;
   border-radius: 7px;
-  background: #0000;
+  background: transparent;
 }
 
 a.viewBtn {
@@ -264,7 +295,7 @@ button.deleteBtn {
   &:hover {
     border: 1px solid #ff4a4a;
     background: #ff4a4a;
-    color: #fff;
+    color: $white;
   }
 }
 .spcbtwn {
@@ -308,7 +339,7 @@ a.actionBtn {
     border-radius: 5px;
     font-size: 30px;
     padding: 5px;
-    background: #0000;
+    background: transparent;
     color: $primary;
     transition: $smooth;
   }
@@ -319,25 +350,26 @@ a.actionBtn {
 a.actionBtn:hover {
   svg {
     background: $primary;
-    color: #fff;
+    color: $white;
   }
   background: #f7f8ff;
   outline: 1px solid $primary;
   outline-offset: 3px;
 }
 section.productBread {
-  background: $lightColor;
+  background: #ffffff;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   gap: 2px;
   padding: 5px 20px;
-
+  width: calc(100% - 40px);
+  margin: 20px auto 0 auto;
+  border-radius: 20px;
   h3 {
-    color: #000;
+    color: black;
     transition: $smooth;
-    font-weight: 800;
   }
   ul {
     display: flex;
@@ -351,6 +383,11 @@ section.productBread {
 
     a {
       color: #444;
+      &:hover {
+        color: $primary;
+        text-decoration: underline;
+        text-underline-offset: 5px;
+      }
     }
   }
   ul li:not(:last-child) {
@@ -384,11 +421,12 @@ section.productBread {
     color: #222;
     position: relative;
     font-size: 32px;
+    font-family: headingfont;
 
     &::before {
       position: absolute;
       content: "";
-      top: 0;
+      bottom: -4px;
       left: 0;
       width: 50px;
       height: 3px;
@@ -446,14 +484,14 @@ section.ligtbgSection {
   padding: 20px;
 }
 .bottomfooter {
-  color: #fff;
+  color: $white;
   background: $primary;
   padding: 10px;
   text-align: center;
 }
 .footerAbout {
   padding: 10px;
-  background: #fff;
+  background: $white;
   border-radius: 20px;
 
   ul {
@@ -465,7 +503,7 @@ section.ligtbgSection {
       a {
         transition: $smooth;
         font-size: 30px;
-        outline: 2px solid #0000;
+        outline: 2px solid transparent;
         color: $primary;
         border-radius: 50%;
         height: 30px;
@@ -548,7 +586,11 @@ h5.footerHeading {
   transition: $smooth;
   border: 1px solid #eee;
   border-radius: 20px;
-  background: #fff;
+  background: $white;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  height: 100%;
 
   &:hover .productImg img {
     transform: scale(1.2) rotate(2deg);
@@ -577,11 +619,15 @@ h5.footerHeading {
       }
     }
   }
+  p {
+    margin-bottom: 0;
+  }
 }
 a.viewMore {
-  background: $lightColor;
+  background: #fff;
   color: $primary;
   padding: 7px 15px;
+  border: 1px solid $primary;
   border-radius: 10px;
   transition: $smooth;
   display: flex;
@@ -594,7 +640,7 @@ a.viewMore {
     transition: $smooth;
   }
   &:hover {
-    color: #fff;
+    color: $white;
     background: $primary;
   }
   &:hover svg {
@@ -604,7 +650,7 @@ a.viewMore {
     border-radius: 5px;
     color: $primary;
     margin-left: 5px;
-    background: #fff;
+    background: $white;
   }
 }
 
@@ -616,13 +662,13 @@ a.viewMore {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #291db2;
+    background: #fb5001;
     border-radius: 10px;
   }
   .swiper-button-prev:after,
   .swiper-button-next:after {
     font-size: 25px;
-    color: #fff;
+    color: $white;
   }
 }
 h2.attachedHeading {
@@ -673,7 +719,7 @@ h2.attachedHeading {
 .createInput:focus ~ label,
 .createInput:valid ~ label {
   transform: translateY(-50%) scale(0.8);
-  background-color: #fff;
+  background-color: $white;
   padding: 0 0.2em;
   color: $primary;
 }
@@ -713,7 +759,7 @@ h2.attachedHeading {
   color: $lightColor !important;
 
   svg {
-    background: #fff;
+    background: $white;
     color: $primary;
   }
   &::after {
@@ -727,7 +773,7 @@ h2.attachedHeading {
   border-radius: 20px;
 }
 .tabForm {
-  background: #fff;
+  background: $white;
   border-radius: 20px;
   height: 100%;
   padding: 20px 10px;
@@ -742,7 +788,7 @@ section.createSection {
   justify-content: space-between;
   align-items: center;
   gap: 5px;
-  background: #0000;
+  background: transparent;
   padding: 5px;
   border: 1px solid #eee;
   border-radius: 10px;
@@ -755,12 +801,12 @@ section.createSection {
 
     input {
       position: absolute;
-      accent-color: #291db2;
+      accent-color: #fb5001;
       width: 15px;
       height: 15px;
       top: -5px;
       right: -5px;
-      background: #fff;
+      background: $white;
     }
   }
 }
@@ -777,7 +823,7 @@ section.createSection {
     height: 45px;
     width: 300px;
     outline: none;
-    border: 1px solid #eee;
+    border: 2px solid $lightColor;
     border-radius: 10px;
     padding-left: 15px;
     transition: $smooth;
@@ -795,7 +841,7 @@ section.createSection {
     align-items: center;
     font-size: 16px;
     border-radius: 5px;
-    border: 1px solid #0000;
+    border: 1px solid transparent;
     background: $primary;
     color: $white;
   }
@@ -811,7 +857,7 @@ section.centerForm {
   padding: 20px;
   border-radius: 20px;
   box-shadow: $commonShadow;
-  background: #fff;
+  background: $white;
 
   form {
     display: flex;
@@ -822,10 +868,10 @@ section.centerForm {
   }
 }
 button.addMore {
-  background: #fff;
-  color: #291db2;
+  background: $white;
+  color: #fb5001;
   outline: none;
-  border: 1px dashed #291db2;
+  border: 1px dashed #fb5001;
   border-radius: 10px;
   height: 40px;
   width: 40px;
@@ -837,13 +883,17 @@ button.addMore {
 
 .pointList {
   word-wrap: break-word;
-}
-.lsn {
   list-style: numeric;
 }
-button.commonBtn:disabled {
+ul.pointList li {
+  list-style: numeric !important;
+}
+.lsn {
+  list-style: numeric !important;
+}
+.commonBtn:disabled {
   background: #777;
-  color: #fff;
+  color: $white;
 }
 .searchBar {
   position: relative;
@@ -870,7 +920,7 @@ button.commonBtn:disabled {
     padding-right: 10px;
 
     &::-webkit-scrollbar {
-      background: #fff;
+      background: $white;
       width: 5px;
     }
     &::-webkit-scrollbar-thumb {
@@ -893,7 +943,7 @@ button.commonBtn:disabled {
       justify-content: flex-start;
       align-items: center;
       gap: 10px;
-      background: #fff;
+      background: $white;
       border-radius: 7px;
     }
   }
@@ -902,7 +952,7 @@ span.categoryBadge {
   background: $primary;
   padding: 3px;
   font-size: 12px;
-  color: #fff;
+  color: $white;
   border-radius: 5px;
 }
 .commonBox {
@@ -910,15 +960,22 @@ span.categoryBadge {
   border-radius: 20px;
   box-shadow: $commonShadow;
   height: 100%;
-  background: #fff;
+  background: $white;
   position: relative;
 }
 button.username {
-  background: #0000;
-  color: $primary;
+  background: transparent;
+  color: #fb5001;
+  border: 2px solid #ffede4;
   font-weight: 600;
-  border: none;
   outline: none;
+  height: 40px;
+  width: calc(100% + 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 10px;
 }
 .clientInfoList {
   display: flex;
@@ -947,7 +1004,7 @@ button.username {
   padding: 10px;
   border-radius: 20px;
   box-shadow: $commonShadow;
-  background: #fff;
+  background: $white;
   img {
     width: 100%;
     height: 100%;
@@ -962,7 +1019,7 @@ button.username {
     animation: slide-in-fwd-top 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
     height: auto;
     width: 300px;
-    background: #fff;
+    background: $white;
     padding: 20px;
     border-radius: 20px;
     top: calc(100% + 20px);
@@ -970,6 +1027,37 @@ button.username {
     border: 1px solid #eee;
     box-shadow: $commonShadow;
     z-index: 111;
+
+    ul {
+      li {
+        a,
+        button {
+          color: $darkColor;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          margin: 20px 0;
+          background: #0000;
+          padding: 2px 0;
+          border: none;
+          gap: 10px;
+          svg {
+            color: $primary;
+            font-size: 25px;
+            padding: 2px;
+            background: $lightColor;
+            border-radius: 5px;
+            transition: $smooth;
+          }
+
+          &:hover svg {
+            color: $lightColor;
+            background: $primary;
+            transform: scale(1.05);
+          }
+        }
+      }
+    }
   }
 }
 @keyframes slide-in-fwd-top {
@@ -985,8 +1073,8 @@ button.username {
   }
 }
 button.whiteBtn {
-  background: #fff;
-  color: #291db2;
+  background: $white;
+  color: #fb5001;
   font-weight: 600;
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 10px;
@@ -994,9 +1082,54 @@ button.whiteBtn {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 5px 15px;
+  height: 50px;
   border: 1px solid #eee;
+  padding: 0 10px;
+
+  svg {
+    height: 25px;
+    width: 25px;
+    border-radius: 5px;
+    background: #fff;
+    color: $primary;
+  }
+  &:hover {
+    color: #fff;
+    background: $primary;
+  }
 }
 .gap20 {
   gap: 20px;
+}
+.indsutryCard h5 {
+  text-align: left;
+  margin-top: 10px;
+}
+.circleUser svg {
+  color: #fff;
+  background: #fb5001;
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.contact {
+  h6 {
+    color: $darkColor;
+  }
+}
+
+.homeSlides {
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+span.searchName {
+  text-transform: lowercase;
+}
+
+.w300 {
+  width: 300px;
 }

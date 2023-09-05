@@ -1,19 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import {
-  AiOutlineDelete,
-  AiOutlineInfoCircle,
-  AiOutlinePlus,
-} from "react-icons/ai";
+import React, { useState } from "react";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import { MdOutlineFactory, MdOutlineFeaturedPlayList } from "react-icons/md";
 import { TbBrandAppleArcade } from "react-icons/tb";
 import { BiBookContent } from "react-icons/bi";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
-import Image from "next/image";
-import { publicRequest } from "@/libs/requestMethods";
-
-import { toast } from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 import AddDesc from "../../Components/AddDesc";
 import AddProductAbout from "../../Components/AddProductAbout";
@@ -54,7 +46,7 @@ export default function Page() {
                       <Tab>
                         About Product <AiOutlineInfoCircle />
                       </Tab>
-                      <Tab>
+                      <Tab default>
                         Description <BiBookContent />
                       </Tab>
                       <Tab>
@@ -80,7 +72,11 @@ export default function Page() {
                           setProductId={setProductId}
                         />
                       </TabPanel>
-                      <TabPanel className="tabEditor" id="addDesc">
+                      <TabPanel
+                        className="tabEditor"
+                        id="addDesc"
+                        default={true}
+                      >
                         <AddDesc
                           productId={productId}
                           inputs={inputs}

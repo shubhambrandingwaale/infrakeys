@@ -6,6 +6,7 @@ import { TfiDropboxAlt } from "react-icons/tfi";
 import { publicRequest } from "@/libs/requestMethods";
 import Link from "next/link";
 import { toast } from "react-hot-toast";
+import { getCookie } from "@/utils/getCookie";
 
 export default function Page() {
   const [subCategories, setSubCategories] = useState([]);
@@ -13,8 +14,13 @@ export default function Page() {
   useEffect(() => {
     async function fetchSubCategories() {
       try {
-        const resp = await publicRequest.get("/sub-categories");
+        const resp = await publicRequest.get("/sub-categories", {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        });
         setSubCategories(resp.data);
+        if (resp.data.length === 0) {
+          toast.error("Sub Category not available");
+        }
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +48,7 @@ export default function Page() {
 
   return (
     <>
-      <section className="viewSection">
+      <section className="viewSection mt-3">
         <div className="container-fluid">
           <div className="statsTable">
             <div className="spcbtwn mb-3">
@@ -50,7 +56,7 @@ export default function Page() {
                 <TfiDropboxAlt />
                 All Sub Categories List
               </h4>
-              <div className="searchBar">
+              <div className="searchBar d-none">
                 <form>
                   <input type="text" placeholder="Search Products" />
                   <button>
@@ -76,9 +82,6 @@ export default function Page() {
                     <td>{subCategory.category_name}</td>
                     <td>
                       <div className="actionBox d-flex gap-10 justify-content-center">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
                         <button
                           className="deleteBtn"
                           onClick={() =>

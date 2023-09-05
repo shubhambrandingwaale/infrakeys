@@ -1,9 +1,11 @@
 "use client";
 import { publicRequest } from "@/libs/requestMethods";
+import { getCookie } from "@/utils/getCookie";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { BsEnvelopeOpen, BsPhone, BsPinMap } from "react-icons/bs";
+import { BsEnvelopeOpen, BsPhone, BsPinMap, BsSearch } from "react-icons/bs";
+import { TfiDropboxAlt } from "react-icons/tfi";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
@@ -11,17 +13,53 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function Page({ params: { id } }) {
   const [products, setProducts] = useState([]);
+  const [user, setUser] = useState({});
+  const [userQueries, setUserQueries] = useState([]);
   console.log(products);
+
   useEffect(() => {
     async function getproducts(id) {
       try {
-        const resp = await publicRequest.get(`/recently-viewed/${id}`);
+        const resp = await publicRequest.get(`/admin/recently-viewed/${id}`, {
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+          },
+        });
         setProducts(resp.data);
+        console.log("recent", resp.data);
       } catch (error) {
         console.log(error);
       }
     }
     getproducts(id);
+
+    (async function () {
+      try {
+        const resp = await publicRequest.get(`/users/${id}`, {
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+          },
+        });
+        setUser(resp.data);
+        console.log("user", resp.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+
+    (async function () {
+      try {
+        const resp = await publicRequest.get(`/product-queries/admin/${id}`, {
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+          },
+        });
+        setUserQueries(resp.data);
+        console.log("queries", resp.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   }, [id]);
 
   return (
@@ -31,28 +69,58 @@ export default function Page({ params: { id } }) {
           <div className="row">
             <div className="col-lg-4">
               <div className="commonBox">
-                <h2>Client Name</h2>
+                <h2>{user.fullname}</h2>
                 <ul className="clientInfoList">
                   <li>
                     <BsPhone />
-                    <span>9572674853</span>
+                    <span>{user.phone}</span>
                   </li>
                   <li>
                     <BsEnvelopeOpen />
-                    <span>email@gmail.com</span>
+                    <span>{user.email}</span>
                   </li>
                   <li>
                     <BsPinMap />
-                    <span>City, State</span>
+                    <span>{`${user.city}, ${user.state}`}</span>
                   </li>
                   <li>
                     <BsPinMap />
-                    <span>Joined at</span>
+                    <span>{new Date(user.updated_at).toDateString()}</span>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="col-lg-8">
+            <div className="col-lg-8 mt-3">
+              <div className="statsTable">
+                <div className="spcbtwn mb-3">
+                  <h4>
+                    <TfiDropboxAlt />
+                    All Raised Product Enquries by {user.fullname}
+                  </h4>
+                </div>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Sr No.</th>
+                      <th>Product</th>
+                      <th>Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {userQueries?.map((query, key) => {
+                      return (
+                        <tr key={query.id}>
+                          <td>{key + 1}</td>
+                          <td>{query.title}</td>
+                          <td>{query.timestamp}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="col-12 mt-3">
               <div className="commonBox">
                 <Swiper
                   className="productAboutSlider"
@@ -78,7 +146,7 @@ export default function Page({ params: { id } }) {
                       <div className="productCard">
                         <div className="productImg">
                           <Image
-                            src={`https://infrakeys-backend-production.up.railway.app${productItem.images}`}
+                            src={`https://infrakeysapp.in${productItem.images}`}
                             height={150}
                             width={300}
                             alt={`${productItem.title} product | Infrakeys`}

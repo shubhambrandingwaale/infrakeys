@@ -12,7 +12,7 @@
 //         <div className="productCard">
 //           <div className="productImg">
 //             <Image
-//               src={`https://infrakeys-backend-production.up.railway.app${product?.images[0]}`}
+//               src={`https://infrakeysapp.in${product?.images[0]}`}
 //               height={150}
 //               width={300}
 //               alt={`${product?.title} Products | Infrakeys`}

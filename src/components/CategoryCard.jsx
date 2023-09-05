@@ -15,10 +15,10 @@ export default function CategoryCard({ category }) {
               .join("-")}/${category.id}`}
           >
             <Image
-              src={`http://62.72.59.14${category.image_url}`}
+              src={`https://infrakeysapp.in${category.image_url}`}
               alt={` ${category.name}  | Main Categories in Infrakeys`}
+              width={150}
               height={100}
-              width={100}
             />
             <span>{category.name}</span>
           </Link>

@@ -1,13 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import StatsCard from "./Components/StatsCard";
-import ActionPanel from "./Components/ActionPanel";
-import StatsTable from "./Components/StatsTable";
 import { TbUserQuestion } from "react-icons/tb";
 import { HiOutlineArrowTopRightOnSquare } from "react-icons/hi2";
 import Link from "next/link";
 import {
   MdFormatListBulletedAdd,
+  MdLogout,
   MdOutlineFactory,
   MdTrolley,
 } from "react-icons/md";
@@ -19,25 +17,64 @@ import {
 import { TfiDropboxAlt } from "react-icons/tfi";
 import ActionBtn from "./Components/ActionBtn";
 import { HiViewGridAdd } from "react-icons/hi";
-import { BsBoxSeam } from "react-icons/bs";
+import { BsBoxSeam, BsCardImage } from "react-icons/bs";
 import { BiSolidPieChartAlt2 } from "react-icons/bi";
 import { publicRequest } from "@/libs/requestMethods";
+import { getCookie } from "@/utils/getCookie";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Page() {
   const [stats, setStats] = useState([]);
+  const [queries, setQueries] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    (async function () {
+      try {
+        const resp = await publicRequest.get("/products");
+        console.log(resp.data);
+        setProducts(resp.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
+  useEffect(() => {
+    (async function () {
+      const resp = await publicRequest.get("/product-queries", {
+        headers: { Authorization: `Bearer ${getCookie("token")}` },
+      });
+      setQueries(resp.data);
+      console.log(resp.data);
+    })();
+
+    (async function () {
+      const resp = await publicRequest.get("/users", {
+        headers: { Authorization: `Bearer ${getCookie("token")}` },
+      });
+      setUsers(resp.data);
+      console.log("User data", resp.data);
+    })();
+  }, []);
 
   useEffect(() => {
     (async function () {
       try {
-        const resp = await publicRequest.get("/dashboard/details");
+        const resp = await publicRequest.get("/dashboard/details", {
+          headers: {
+            Authorization: `Bearer ${getCookie("token")}`,
+          },
+        });
         setStats(resp.data);
+        console.log(resp.data);
       } catch (error) {
         console.log(error);
       }
     })();
   }, []);
   console.log(stats);
-
+  const router = useRouter();
   return (
     <>
       <section className="adminPanel">
@@ -90,13 +127,23 @@ export default function Page() {
                 <div className="row" id="actionProducts">
                   <ActionBtn
                     name="Add Industries"
-                    link="/admin/categories/add"
+                    link="/admin/products/industries/add"
                     icon={<HiViewGridAdd />}
                   />
                   <ActionBtn
                     name="View All Industries"
-                    link="/admin/categories"
+                    link="/admin/products/industries"
                     icon={<MdOutlineFactory />}
+                  />
+                  <ActionBtn
+                    name="Add Banners"
+                    link="/admin/banners/add"
+                    icon={<MdOutlineFactory />}
+                  />
+                  <ActionBtn
+                    name="View All Banners"
+                    link="/admin/banners"
+                    icon={<BsCardImage />}
                   />
                 </div>
               </div>
@@ -168,7 +215,7 @@ export default function Page() {
                     <TbUserQuestion />
                     Recently Raised Enquries
                   </h4>
-                  <Link className="viewAll" href="/">
+                  <Link className="viewAll" href="/admin/enquiries">
                     View All
                     <HiOutlineArrowTopRightOnSquare />
                   </Link>
@@ -177,24 +224,26 @@ export default function Page() {
                   <thead>
                     <tr>
                       <th>Sr. No</th>
-                      <th>Product Name</th>
                       <th>Client Name</th>
-                      <th>Time</th>
+                      <th>Product Name</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>Product B</td>
-                      <td>Ashok Sharma</td>
-                      <td>15:20, 17 Sept, 2023</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>Product A</td>
-                      <td>Vishal Gautam</td>
-                      <td>11:35, 20 Sept, 2023</td>
-                    </tr>
+                    {queries?.slice(0, 10)?.map((query, key) => {
+                      return (
+                        <tr key={query.id}>
+                          <td>{key + 1}</td>
+                          <td>
+                            <Link
+                              href={`admin/customers/${query.user_name}/${query.user_id}`}
+                            >
+                              {query.user_name}
+                            </Link>
+                          </td>
+                          <td>{query.product_name}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -206,7 +255,7 @@ export default function Page() {
                     <TfiDropboxAlt />
                     Recently Added Products
                   </h4>
-                  <Link className="viewAll" href="/">
+                  <Link className="viewAll" href="/admin/products">
                     View All
                     <HiOutlineArrowTopRightOnSquare />
                   </Link>
@@ -216,100 +265,17 @@ export default function Page() {
                     <tr>
                       <th>Sr No.</th>
                       <th>Product Name</th>
-                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
+                    {products?.slice(0, 10).map((product, key) => {
+                      return (
+                        <tr key={product.id}>
+                          <td>{key + 1}</td>
+                          <td>{product.title}</td>
+                        </tr>
+                      );
+                    })}
                   </tbody>
                 </table>
               </div>
@@ -321,7 +287,7 @@ export default function Page() {
                     <TfiDropboxAlt />
                     New Customers
                   </h4>
-                  <Link className="viewAll" href="/">
+                  <Link className="viewAll" href="/admin/customers">
                     View
                     <HiOutlineArrowTopRightOnSquare />
                   </Link>
@@ -331,100 +297,20 @@ export default function Page() {
                     <tr>
                       <th>Sr No.</th>
                       <th>Product Name</th>
-                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>01</td>
-                      <td>Steel Iron</td>
-                      <td className="centerit">
-                        <Link className="viewBtn" href="/">
-                          <AiOutlineEye />
-                        </Link>
-                      </td>
-                    </tr>
+                    {users
+                      ?.filter((item) => item.role === "user")
+                      .slice(0, 10)
+                      .map((user, key) => {
+                        return (
+                          <tr key={user.id}>
+                            <td>{key + 1}</td>
+                            <td>{user.fullname}</td>
+                          </tr>
+                        );
+                      })}
                   </tbody>
                 </table>
               </div>
