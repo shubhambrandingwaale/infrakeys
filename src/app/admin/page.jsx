@@ -33,7 +33,7 @@ export default function Page() {
     (async function () {
       try {
         const resp = await publicRequest.get("/products");
-        console.log(resp.data);
+
         setProducts(resp.data);
       } catch (error) {
         console.log(error);
@@ -46,7 +46,6 @@ export default function Page() {
         headers: { Authorization: `Bearer ${getCookie("token")}` },
       });
       setQueries(resp.data);
-      console.log(resp.data);
     })();
 
     (async function () {
@@ -67,7 +66,6 @@ export default function Page() {
           },
         });
         setStats(resp.data);
-        console.log(resp.data);
       } catch (error) {
         console.log(error);
       }

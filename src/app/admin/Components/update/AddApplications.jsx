@@ -4,6 +4,7 @@ import { AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { publicRequest } from "@/libs/requestMethods";
 import AdminHeading from "../AdminHeading";
+import { getCookie } from "@/utils/getCookie";
 export default function AddApplications({ productId, inputs, setInputs }) {
   const [applications, setApplications] = useState([]);
   async function handleFormApplications(e) {
@@ -22,7 +23,6 @@ export default function AddApplications({ productId, inputs, setInputs }) {
       if (resp.status === 200) {
         toast.success("Product Applications Added Successfully");
       }
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }
@@ -47,7 +47,6 @@ export default function AddApplications({ productId, inputs, setInputs }) {
         `/product-applications/products/${id}`
       );
       setApplications(resp.data);
-      console.log(resp.data);
     }
     Applications(productId);
   }, [productId]);
@@ -67,7 +66,7 @@ export default function AddApplications({ productId, inputs, setInputs }) {
         headers: { Authorization: `Bearer ${getCookie("token")}` },
       }
     );
-    console.log(resp.data);
+
     if (resp.status === 200) {
       toast.success("Application added successfully.");
       setApplications((prev) => [...prev, resp.data[0]]);
@@ -127,8 +126,8 @@ export default function AddApplications({ productId, inputs, setInputs }) {
             <ul className="pointList lsn">
               {applications?.map((item, key) => {
                 return (
-                  <li key={key} className="lsn">
-                    {item.application}
+                  <li key={key} className="lsn row">
+                    <div className="col-lg-11">{item.application}</div>
                     <div className="col-lg-1 centerit mt-3">
                       <button
                         className="deleteBtn"

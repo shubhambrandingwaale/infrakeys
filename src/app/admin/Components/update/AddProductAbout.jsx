@@ -3,6 +3,7 @@ import { publicRequest } from "@/libs/requestMethods";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import AdminHeading from "../AdminHeading";
+import { getCookie } from "@/utils/getCookie";
 
 export default function AddProductAbout({
   setProductId,
@@ -45,8 +46,6 @@ export default function AddProductAbout({
         toast.success("Product updated successfully.");
         setProductId(resp.data.id);
       }
-
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }
@@ -70,11 +69,11 @@ export default function AddProductAbout({
   useEffect(() => {
     (async function () {
       const subCategoriesArr = await publicRequest.get("/sub-categories");
-      // console.log(resp.data);
+      //
       setSubCategories(subCategoriesArr.data);
 
       const resp = await publicRequest.get(`/products/${productId}`);
-      console.log(resp.data);
+
       if (resp.status === 200) {
         setInputs((prev) => ({
           ...prev,

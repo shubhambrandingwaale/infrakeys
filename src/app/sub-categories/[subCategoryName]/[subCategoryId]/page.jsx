@@ -11,7 +11,7 @@ export default function Page({ params: { subCategoryId } }) {
     (async function () {
       try {
         const resp = await publicRequest.get(`/products`);
-        console.log(resp.data);
+
         setProducts(
           resp.data.filter((item) => item.sub_category_id === +subCategoryId)
         );

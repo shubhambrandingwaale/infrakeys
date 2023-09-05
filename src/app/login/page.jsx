@@ -46,8 +46,6 @@ export default function Page() {
           handleNavigate();
         }
       }
-
-      console.log(resp.data);
     } catch (error) {
       toast.error(error.message);
       console.log(error);

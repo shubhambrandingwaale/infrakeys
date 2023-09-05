@@ -33,7 +33,7 @@ export default function Page() {
       const confirmation = confirm("Are you sure to delete sub categories");
       if (confirmation) {
         const resp = await publicRequest.delete(`/sub-categories/${id}`);
-        console.log(resp.data);
+
         if (resp.status === 200) {
           toast.success("Sub Category Deleted Successfully");
           setSubCategories((prevSubCategories) =>

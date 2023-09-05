@@ -13,7 +13,7 @@ export default function Page({ params: { categoryId } }) {
       try {
         const resp = await publicRequest.get(`/sub-categories`);
         // const data = resp.data;
-        console.log(resp.data);
+
         setSubCategories(
           resp.data.filter((item) => item.category_id === +categoryId)
         );

@@ -112,7 +112,7 @@ export default function Page() {
           },
         }
       );
-      console.log(resp.data);
+
       if (resp.status === 200) {
         toast.success(resp.data.message);
       }

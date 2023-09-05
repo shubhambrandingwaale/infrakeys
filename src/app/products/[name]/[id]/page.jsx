@@ -17,6 +17,8 @@ import { getCookie } from "@/utils/getCookie";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { RxCross1 } from "react-icons/rx";
+import { Navigation } from "swiper/modules";
+import { BsChevronRight } from "react-icons/bs";
 
 // export async function generateStaticParams() {
 //   const products = await publicRequest.get(`/products`).then((res) => res.data);
@@ -192,6 +194,7 @@ export default function Page({ params: { id } }) {
                 <div className="productSlider">
                   <Swiper
                     pagination={true}
+                    navigation={true}
                     modules={[Pagination]}
                     className="productAboutSlider"
                   >
@@ -333,7 +336,7 @@ export default function Page({ params: { id } }) {
                     <div className="productCard">
                       <div className="productImg">
                         <Image
-                          src={`https://infrakeysapp.in${productItem.images}`}
+                          src={`https://infrakeysapp.in${productItem.images[0]}`}
                           height={150}
                           width={300}
                           alt={`${productItem.title} product | Infrakeys`}
@@ -350,12 +353,15 @@ export default function Page({ params: { id } }) {
                         </Link>
 
                         <Link
+                          title="View More"
+                          className="viewMore"
                           href={`/products/${productItem.title
                             .toLowerCase()
                             .split(" ")
                             .join("-")}/${productItem.id}`}
                         >
                           View Product
+                          <BsChevronRight />
                         </Link>
                       </div>
                     </div>
@@ -396,7 +402,7 @@ export default function Page({ params: { id } }) {
                     <div className="productCard">
                       <div className="productImg">
                         <Image
-                          src={`https://infrakeysapp.in${productItem.images}`}
+                          src={`https://infrakeysapp.in${productItem.images[0]}`}
                           height={150}
                           width={300}
                           alt={`${productItem.title} product | Infrakeys`}
@@ -412,12 +418,15 @@ export default function Page({ params: { id } }) {
                           <h3>{productItem.title}</h3>
                         </Link>
                         <Link
+                          title="View More"
+                          className="viewMore"
                           href={`/products/${productItem.title
                             .toLowerCase()
                             .split(" ")
                             .join("-")}/${productItem.id}`}
                         >
                           View Product
+                          <BsChevronRight />
                         </Link>
                       </div>
                     </div>

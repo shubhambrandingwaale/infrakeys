@@ -4,6 +4,7 @@ import AdminHeading from "../AdminHeading";
 import { AiOutlineDelete, AiOutlinePlus } from "react-icons/ai";
 import { toast } from "react-hot-toast";
 import { publicRequest } from "@/libs/requestMethods";
+import { getCookie } from "@/utils/getCookie";
 
 export default function AddFeatures({ productId, inputs, setInputs }) {
   const [features, setFeatures] = useState([]);
@@ -22,7 +23,6 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
       if (resp.status === 200) {
         toast.success("features added successfully.");
       }
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }
@@ -44,9 +44,8 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
       },
       { headers: { Authorization: `Bearer ${getCookie("token")}` } }
     );
-    console.log(resp.data);
+
     if (resp.status === 200) {
-      toast.success("Feature added successfully.");
       setFeatures((prev) => [...prev, resp.data[0]]);
     }
 
@@ -130,27 +129,29 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
           </div>
         </div>
         <div className="row">
-          <div className="col-lg-3 mt-3">
-            <ul className="pointList">
-              {features?.map((item, key) => {
-                return (
-                  <li key={key} className="lsn">
-                    <b>{item.title}</b>
+          <ul className="pointList">
+            {features?.map((item, key) => {
+              return (
+                <li key={key} className="lsn row mt-1">
+                  <div className="col-lg-3">
+                    <b>{item.title} :</b>
+                  </div>
+                  <div className="col-lg-8">
                     <p>{item.feature}</p>
-                    <div className="col-lg-1 centerit mt-3">
-                      <button
-                        type="button"
-                        className="deleteBtn"
-                        onClick={() => handleFeatureDelete(item.id)}
-                      >
-                        <AiOutlineDelete />
-                      </button>
-                    </div>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
+                  </div>
+                  <div className="col-lg-1 centerit mt-3">
+                    <button
+                      type="button"
+                      className="deleteBtn"
+                      onClick={() => handleFeatureDelete(item.id)}
+                    >
+                      <AiOutlineDelete />
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
         </div>
         <div className="row">
           <div className="col-12 mt-3 centerit">

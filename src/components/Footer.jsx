@@ -1,10 +1,15 @@
 import Image from "next/image";
 import React from "react";
 import {
+  BsBag,
   BsFacebook,
+  BsFillEnvelopeAtFill,
+  BsFillGeoAltFill,
   BsInstagram,
   BsLinkedin,
   BsPhoneFill,
+  BsReceipt,
+  BsWhatsapp,
 } from "react-icons/bs";
 import Link from "next/link";
 import { MdMarkEmailUnread } from "react-icons/md";
@@ -16,6 +21,22 @@ export default function Footer() {
       <footer>
         <div className="mainfooter">
           <div className="container">
+            <div className="showsmall spcbtwn">
+              <a className="buysell" href="/" target="_blank">
+                <BsBag /> Buy
+              </a>
+              <a className="buysell" href="/" target="_blank">
+                <BsReceipt />
+                Sell
+              </a>
+              <a
+                className="whatsapp"
+                href="wa.me/+919810505025"
+                target="_blank"
+              >
+                <BsWhatsapp />
+              </a>
+            </div>
             <div className="row">
               <div className="col-md-4 p-3">
                 <div className="footerAbout">
@@ -59,28 +80,13 @@ export default function Footer() {
                           <Link href="/">Home</Link>
                         </li>
                         <li>
-                          <Link href="/about">About</Link>
+                          <Link href="/products">All Products</Link>
                         </li>
                         <li>
                           <Link href="/categories">All Categories</Link>
                         </li>
                         <li>
                           <Link href="/sub-categories">Sub Categories</Link>
-                        </li>
-                        <li>
-                          <Link href="/contact">Contact Us</Link>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                  <div className="col-6">
-                    <div className="footerLinks">
-                      <h5 className="footerHeading">Main Categories</h5>
-                      <ul>
-                        <li>
-                          <Link href="/">
-                            All Sub Categories will be map here
-                          </Link>
                         </li>
                       </ul>
                     </div>
@@ -95,6 +101,17 @@ export default function Footer() {
                       <a href="tel:+919810103410">
                         <BsPhoneFill />
                         <span>All Categories will be map here</span>
+                      </a>
+                      <a href="mail:info@infrakeys.com">
+                        <BsFillEnvelopeAtFill />
+                        <span>info@infrakeys.com</span>
+                      </a>
+                      <a href="#">
+                        <BsFillGeoAltFill />
+                        <span>
+                          519 & 520, the business hub, sec-81, greater
+                          faridabad-121007
+                        </span>
                       </a>
                     </li>
                   </ul>

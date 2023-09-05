@@ -32,7 +32,6 @@ export default function Page() {
       try {
         const resp = await publicRequest.get("/banners");
         setHeroslides(resp.data);
-        console.log(resp.data);
       } catch (error) {
         console.log(error);
       }
@@ -44,28 +43,32 @@ export default function Page() {
       <section className="plainSection">
         <div className="container-fluid">
           <div className="row">
-            {heroslides?.map((item) => (
-              <div key={item.id} className="col-lg-4 col-sm-6">
-                <div className="bannerCard">
-                  <Image
-                    src={`https://infrakeysapp.in${item.banner_url}`}
-                    height={300}
-                    width={500}
-                    alt="Banners of Image"
-                  />
-                  <div className="spcbtwn mt-2">
-                    <h4>{item.name}</h4>
-                    <button
-                      className="deleteBtn"
-                      onClick={() => handleBannerDelete(item.id)}
-                    >
-                      <AiOutlineDelete />
-                    </button>
+            {heroslides.length < 1 ? (
+              <h1 className="text-center">Add New Banners</h1>
+            ) : (
+              heroslides?.map((item) => (
+                <div key={item.id} className="col-lg-4 col-sm-6">
+                  <div className="bannerCard">
+                    <Image
+                      src={`https://infrakeysapp.in${item.banner_url}`}
+                      height={300}
+                      width={500}
+                      alt="Banners of Image"
+                    />
+                    <div className="spcbtwn mt-2">
+                      <h4>{item.name}</h4>
+                      <button
+                        className="deleteBtn"
+                        onClick={() => handleBannerDelete(item.id)}
+                      >
+                        <AiOutlineDelete />
+                      </button>
+                    </div>
+                    Category : {item.category_name}
                   </div>
-                  Category : {item.category_name}
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
         </div>
       </section>

@@ -49,7 +49,6 @@ export default function Page() {
           handleNavigate();
         }
       }
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }

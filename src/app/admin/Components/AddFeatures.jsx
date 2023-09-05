@@ -26,7 +26,6 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
       if (resp.status === 200) {
         toast.success("features added successfully.");
       }
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }
@@ -52,6 +51,15 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
       featureTitle: "",
       featureDesc: "",
     }));
+  }
+  async function handleFeatureDelete(id) {
+    const resp = await publicRequest.delete(`/product-features/${id}`, {
+      headers: { Authorization: `Bearer ${getCookie("token")}` },
+    });
+    if (resp.status === 200) {
+      toast.success("Feature deleted successfully.");
+      setFeatures((prev) => prev.filter((item) => item.id !== id));
+    }
   }
   return (
     <div className="container-fluid">
@@ -119,7 +127,11 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
           </div>
           {features.length > 0 && (
             <div className="col-lg-1 centerit mt-3">
-              <button type="button" className="deleteBtn">
+              <button
+                type="button"
+                className="deleteBtn"
+                onClick={() => handleFeatureDelete(item.id)}
+              >
                 <AiOutlineDelete />
               </button>
             </div>

@@ -2,19 +2,75 @@ $desktop: 1600px;
 $tablet: 770px;
 $smartphone: 600px;
 $miniphone: 320px;
+$primary: #fb5001;
+$lightColor: #ffede4;
+
 @media (max-width: $desktop) {
   .smartHeader {
+    display: none;
+  }
+  .showsmall {
     display: none;
   }
 }
 @media (max-width: $tablet) {
 }
 @media (max-width: $smartphone) {
-  .smartHeader {
-    display: block;
-  }
   .deskHeader {
     display: none;
+  }
+  .showsmall {
+    display: flex;
+  }
+  button.username {
+    font-size: 15px;
+    display: flex;
+    width: 100%;
+  }
+  .smartHeader {
+    display: block;
+    padding: 10px;
+    background: #fff;
+  }
+  .searchBar form input {
+    width: 100%;
+  }
+  .searchBar {
+    margin-top: 10px;
+  }
+  .heroSliderBox {
+    margin-bottom: 20px;
+  }
+  section.hero {
+    padding: 10px;
+  }
+  .categoryCard a img {
+    width: 100px;
+    height: 75px;
+  }
+  .categoryCard a span {
+    font-size: 15px;
+  }
+  section.plainSection {
+    padding: 10px;
+  }
+  .searchList {
+    position: absolute;
+    top: calc(100% + 20px);
+    height: 200px;
+    background: #fff;
+    width: 100%;
+    padding: 10px;
+    z-index: 111;
+    border-radius: 10px;
+    box-shadow: 0 7px 20px -10px #bdbdbd;
+  }
+  .searchList a .searchLink {
+    background: #ffede4;
+    font-weight: 700;
+  }
+  .categoryCard {
+    padding: 0px;
   }
 }
 @media (max-width: $miniphone) {

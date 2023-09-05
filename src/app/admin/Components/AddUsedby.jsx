@@ -16,7 +16,6 @@ export default function AddUsedby({ productId }) {
       try {
         const resp = await publicRequest.get("/industries");
         setOptions(resp.data);
-        console.log(resp.data);
       } catch (error) {
         console.log(error);
       }
@@ -61,7 +60,6 @@ export default function AddUsedby({ productId }) {
       if (resp.status === 200) {
         toast.success("Industries added to this Product");
       }
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }

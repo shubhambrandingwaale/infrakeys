@@ -38,7 +38,6 @@ export default function Page() {
         toast.success("New Industry added Successfully");
         handleNavigate();
       }
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }

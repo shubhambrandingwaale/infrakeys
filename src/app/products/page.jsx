@@ -13,7 +13,7 @@ export default function Page() {
     (async function () {
       try {
         const resp = await publicRequest.get("/products");
-        console.log(resp.data);
+
         setProducts(resp.data);
       } catch (error) {
         console.log(error);
@@ -23,12 +23,15 @@ export default function Page() {
 
   return (
     <>
-      <section className="commonSection">
+      <section className="plainSection">
         <div className="container-fluid">
           <div className="row">
             {products?.map((product) => {
               return (
-                <div className="col-lg-3 col-md-4 col-sm-6" key={product.id}>
+                <div
+                  className="col-lg-3 col-md-4 col-sm-6 mt-3"
+                  key={product.id}
+                >
                   <div className="productCard">
                     <div className="productImg">
                       <Image

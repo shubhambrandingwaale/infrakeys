@@ -23,7 +23,6 @@ export default function AddApplications({ productId, inputs, setInputs }) {
       if (resp.status === 200) {
         toast.success("Product Applications Added Successfully");
       }
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }
@@ -40,6 +39,15 @@ export default function AddApplications({ productId, inputs, setInputs }) {
       ...prev,
       applicationText: "",
     }));
+  }
+  async function handleApplicationDelete(id) {
+    const resp = await publicRequest.delete(`/product-applications/${id}`, {
+      headers: { Authorization: `Bearer ${getCookie("token")}` },
+    });
+    if (resp.status === 200) {
+      toast.success("Application deleted successfully.");
+      setApplications((prev) => prev.filter((item) => item.id !== id));
+    }
   }
   return (
     <div className="container-fluid">
@@ -79,20 +87,24 @@ export default function AddApplications({ productId, inputs, setInputs }) {
             <ul className="pointList">
               {applications?.map((item, key) => {
                 return (
-                  <li key={key} className="lsn">
-                    {item}
+                  <li key={key} className="lsn row">
+                    <div className="col-lg-11">{item}</div>
+                    {applications.length > 0 && (
+                      <div className="col-lg-1 centerit mt-3">
+                        <button
+                          type="button"
+                          className="deleteBtn"
+                          onClick={() => handleApplicationDelete(item.id)}
+                        >
+                          <AiOutlineDelete />
+                        </button>
+                      </div>
+                    )}
                   </li>
                 );
               })}
             </ul>
           </div>
-          {applications.length > 0 && (
-            <div className="col-lg-1 centerit mt-3">
-              <button className="deleteBtn">
-                <AiOutlineDelete />
-              </button>
-            </div>
-          )}
         </div>
 
         <div className="row">

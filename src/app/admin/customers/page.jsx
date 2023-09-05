@@ -14,7 +14,6 @@ export default function Page() {
           headers: { Authorization: `Bearer ${getCookie("token")}` },
         });
         setCustomers(resp.data);
-        console.log(resp.data);
       } catch (error) {
         console.log(error);
       }

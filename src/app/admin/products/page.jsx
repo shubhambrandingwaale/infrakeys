@@ -48,14 +48,6 @@ export default function Page() {
                 <TfiDropboxAlt />
                 Recently Added Products
               </h4>
-              <div className="searchBar">
-                <form>
-                  <input type="text" placeholder="Search Products" />
-                  <button>
-                    <BsSearch />
-                  </button>
-                </form>
-              </div>
             </div>
             <table>
               <thead>
@@ -72,7 +64,7 @@ export default function Page() {
                     <tr key={product.id}>
                       <td>{key + 1}</td>
                       <td>{product.title}</td>
-                      <td>{product.sub_category_id}</td>
+                      <td>{product.sub_category_name}</td>
                       <td>
                         <div className="actionBox d-flex gap-10 justify-content-center">
                           <Link

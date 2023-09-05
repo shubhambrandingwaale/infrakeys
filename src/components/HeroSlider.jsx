@@ -16,7 +16,6 @@ export default function HeroSlider() {
       try {
         const resp = await publicRequest.get("/banners");
         setHeroslides(resp.data);
-        console.log(resp.data);
       } catch (error) {
         console.log(error);
       }
@@ -38,7 +37,10 @@ export default function HeroSlider() {
               <div className="homeSlides">
                 <Link
                   className="d-block"
-                  href={`/categories/${slide.category_name}/${slide.category_id}`}
+                  href={`/categories/${slide.category_name
+                    .toLowerCase()
+                    .split(" ")
+                    .join("-")}/${slide.category_id}`}
                   title={slide.name}
                 >
                   <Image

@@ -54,7 +54,7 @@ export default function Page() {
           Authorization: `Bearer ${getCookie("token")}`,
         },
       });
-      console.log(resp.data);
+
       if (resp.status === 200) {
         toast.success("Sub Category Added Successfully");
         handleNavigate();

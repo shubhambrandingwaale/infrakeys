@@ -5,7 +5,6 @@ import { publicRequest } from "@/libs/requestMethods";
 export default async function CategoriesHome({}) {
   const resp = await publicRequest.get("/categories");
   const data = resp.data;
-  console.log(resp.data);
 
   return (
     <>

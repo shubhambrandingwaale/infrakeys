@@ -42,7 +42,6 @@ export default function Page() {
     } else {
       toast.error(response.error);
     }
-    console.log(resp.data);
   }
   const handleFileChange = (e) => {
     const img = {

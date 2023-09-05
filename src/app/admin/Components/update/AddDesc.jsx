@@ -5,6 +5,7 @@ import AdminHeading from "../AdminHeading";
 import { publicRequest } from "@/libs/requestMethods";
 
 import { toast } from "react-hot-toast";
+import { getCookie } from "@/utils/getCookie";
 
 export default function AddDesc({ productId, inputs, setInputs }) {
   const [descriptions, setDescriptions] = useState([]);
@@ -23,7 +24,6 @@ export default function AddDesc({ productId, inputs, setInputs }) {
       if (resp.status === 200) {
         toast.success("descriptions added successfully.");
       }
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import AdminHeading from "../AdminHeading";
 import { publicRequest } from "@/libs/requestMethods";
 import { toast } from "react-hot-toast";
 import { AiFillDelete } from "react-icons/ai";
 import Image from "next/image";
 import { getCookie } from "@/utils/getCookie";
+import AdminHeading from "../AdminHeading";
 
 export default function AddUsedby({ productId }) {
   const [options, setOptions] = useState([]);
@@ -12,20 +12,16 @@ export default function AddUsedby({ productId }) {
   // console.log(selectedItems);
   // console.log(options);
   useEffect(() => {
-    (async function () {
-      const industriesArr = await publicRequest.get("/industries");
-      setOptions(industriesArr.data);
-
-      const resp = await publicRequest.get(
-        `/product-used-by/products/${productId}`
-      );
-      setSelectedItems(resp.data);
-
-      const ids = resp.data.map((item) => item.title);
-      const d = industriesArr?.data.filter((item) => !ids.includes(item.title));
-      setOptions(d);
-    })();
-  }, [productId]);
+    async function fetchIndustries() {
+      try {
+        const resp = await publicRequest.get("/industries");
+        setOptions(resp.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    fetchIndustries();
+  }, []);
 
   function handleSelectChange(e) {
     console.log(e);
@@ -41,18 +37,10 @@ export default function AddUsedby({ productId }) {
     );
   };
 
-  const handleRemoveItem = async (itemToRemove) => {
-    const resp = await publicRequest.delete(
-      `/product-used-by/${JSON.parse(itemToRemove).id}`,
-      { headers: { Authorization: `Bearer ${getCookie("token")}` } }
+  const handleRemoveItem = (itemToRemove) => {
+    setSelectedItems(
+      selectedItems.filter((item) => item.id !== JSON.parse(itemToRemove).id)
     );
-    if (resp.status === 200) {
-      toast.success("Deleted successfully.");
-      setSelectedItems(
-        selectedItems.filter((item) => item.id !== JSON.parse(itemToRemove).id)
-      );
-    }
-
     setOptions((prev) => [...prev, JSON.parse(itemToRemove)]);
   };
 
@@ -65,12 +53,13 @@ export default function AddUsedby({ productId }) {
           data: selectedItems,
           product_id: productId,
         },
-        { headers: { Authorization: `Bearer ${getCookie("token")}` } }
+        {
+          headers: { Authorization: `Bearer ${getCookie("token")}` },
+        }
       );
       if (resp.status === 200) {
         toast.success("Industries added to this Product");
       }
-      console.log(resp.data);
     } catch (error) {
       console.log(error);
     }
@@ -121,7 +110,7 @@ export default function AddUsedby({ productId }) {
                 src={item.image}
                 width={40}
                 height={40}
-                alt={`${item.title} | Industries by Infrakeys Products`}
+                alt="will change later"
               />
               <span>{item.title}</span>
 

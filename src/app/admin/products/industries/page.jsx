@@ -14,7 +14,6 @@ export default function Page() {
       try {
         const resp = await publicRequest.get("industries");
         setIndustries(resp.data);
-        console.log(resp.data);
       } catch (error) {
         console.log(error);
       }

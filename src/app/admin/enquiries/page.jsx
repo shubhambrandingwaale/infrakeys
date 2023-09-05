@@ -17,7 +17,6 @@ export default function Page() {
         headers: { Authorization: `Bearer ${getCookie("token")}` },
       });
       setQueries(resp.data);
-      console.log(resp.data);
     })();
   }, []);
 

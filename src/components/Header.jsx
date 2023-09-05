@@ -132,18 +132,20 @@ export default function Header() {
             </a>
           </div>
           <div className="userView">
-            <button onClick={barHideShow} className="username">
-              {getCookie("token") ? (
+            {getCookie("token") ? (
+              <button onClick={barHideShow} className="username">
                 <>
-                  Hello
+                  hello
                   <PiHandsPraying />
-                  &nbsp;
                   <span>{getCookie("user_fullname")}</span>
                 </>
-              ) : (
-                <>Login / Signup</>
-              )}
-            </button>
+              </button>
+            ) : (
+              <button onClick={barHideShow} className="username">
+                Login/Signup
+              </button>
+            )}
+
             {userClicked && (
               <div className="userminiPanel">
                 {getCookie("token") ? (
@@ -199,14 +201,127 @@ export default function Header() {
           </div>
         </div>
         <div className="smartHeader">
-          <div className="logo">
-            <h2>Infrakeys</h2>
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="logo">
+              <Link href="/">
+                <Image
+                  src="/logo.png"
+                  height={55}
+                  width={120}
+                  alt="Infrakeys | Logo"
+                />
+              </Link>
+            </div>
+            <div className="userView">
+              {getCookie("token") ? (
+                <button onClick={barHideShow} className="username">
+                  <>
+                    hello
+                    <PiHandsPraying />
+                    <span>{getCookie("user_fullname")}</span>
+                  </>
+                </button>
+              ) : (
+                <button onClick={barHideShow} className="username">
+                  Login/Signup
+                </button>
+              )}
+
+              {userClicked && (
+                <div className="userminiPanel">
+                  {getCookie("token") ? (
+                    <>
+                      <div className="userInfo">
+                        <div className="circleUser">
+                          <FiUser />
+                          <div className="contact">
+                            <h6>{getCookie("user_fullname")}</h6>
+                            <span>{getCookie("user_email")}</span>
+                          </div>
+                        </div>
+                      </div>
+                      <ul>
+                        <li>
+                          <Link href="/my-dashboard">
+                            <MdOutlineDashboard />
+                            My Dashboard
+                          </Link>
+                        </li>
+                        <li>
+                          <button
+                            onClick={() => {
+                              document.cookie.split(";").forEach(function (c) {
+                                document.cookie = c
+                                  .replace(/^ +/, "")
+                                  .replace(
+                                    /=.*/,
+                                    "=;expires=" +
+                                      new Date().toUTCString() +
+                                      ";path=/"
+                                  );
+                              });
+                              handleNavigate();
+                            }}
+                          >
+                            <FiLogOut />
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    </>
+                  ) : (
+                    <>
+                      <h4 className="mb-3">Please Login First</h4>
+                      <Link className="commonBtn w-auto" href={"/login"}>
+                        Login
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
           <div className="searchBar">
-            <form action="">
-              <input type="text" />
-              <button className="search">Search</button>
+            <form>
+              <input
+                title="Search Products"
+                type="text"
+                placeholder="Search Products"
+                value={searchTerm}
+                onChange={handleInputChange}
+              />
+              <button>
+                <BsSearch />
+              </button>
             </form>
+            {isInputValid && (
+              <div className="searchList">
+                <ul>
+                  {searchResults?.map((item, key) => {
+                    return (
+                      <li key={key}>
+                        <Link
+                          href={`/products/${item.title
+                            .toLowerCase()
+                            .split(" ")
+                            .join("-")}/${item.id}`}
+                          title={item.title}
+                        >
+                          <div className="searchLink">
+                            <span
+                              title="TMT Sariya Bars"
+                              className="searchName"
+                            >
+                              {item.title}
+                            </span>
+                          </div>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </header>
