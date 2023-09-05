@@ -8,6 +8,9 @@ import { useRouter } from "next/navigation";
 
 export default function Page() {
   const router = useRouter();
+  function handleNavigate() {
+    router.push("/admin");
+  }
   const [image, setImage] = useState({});
   const inputRef = useRef();
   async function handleFormSubmit(e) {
@@ -33,7 +36,7 @@ export default function Page() {
       });
       if (resp.status === 200) {
         toast.success("New Industry added Successfully");
-        router.push("/admin/products/industries");
+        handleNavigate();
       }
       console.log(resp.data);
     } catch (error) {

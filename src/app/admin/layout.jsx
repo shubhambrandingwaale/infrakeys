@@ -3,16 +3,21 @@ import { getCookie } from "@/utils/getCookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { MdLogout } from "react-icons/md";
 import { TbArrowBackUp } from "react-icons/tb";
 
 const Adminlayout = ({ children }) => {
   const router = useRouter();
   // console.log(router);
-  if (getCookie("user_role") !== "admin") {
-    return router.push("/");
+  useEffect(() => {
+    if (getCookie("user_role") !== "admin") {
+      return router.push("/");
+    }
+  }, []);
+  function handleNavigate() {
+    router.push("/login");
   }
-
   return (
     <>
       <div className="d-flex justify-content-between pt-3 px-3">
@@ -36,7 +41,7 @@ const Adminlayout = ({ children }) => {
                   "=;expires=" + new Date().toUTCString() + ";path=/"
                 );
             });
-            router.push("/login");
+            handleNavigate();
           }}
         >
           Logout

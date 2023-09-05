@@ -7,6 +7,9 @@ import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 export default function Page() {
   const router = useRouter();
+  function handleNavigate() {
+    router.push("/admin");
+  }
   const [image, setImage] = useState({ preview: "", data: "" });
   const [inputs, setInputs] = useState({
     name: "",
@@ -34,7 +37,8 @@ export default function Page() {
     });
     if (resp.status === 200) {
       toast.success("Category Added Successfully");
-      router.push("/admin");
+
+      handleNavigate();
     } else {
       toast.error(response.error);
     }

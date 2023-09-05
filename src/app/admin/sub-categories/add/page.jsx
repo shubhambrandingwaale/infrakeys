@@ -15,6 +15,9 @@ export default function Page() {
   const [categories, setCategories] = useState([]);
   const router = useRouter();
   console.log(inputVals);
+  function handleNavigate() {
+    router.push("/admin");
+  }
 
   useEffect(() => {
     async function fetchCategories() {
@@ -54,7 +57,7 @@ export default function Page() {
       console.log(resp.data);
       if (resp.status === 200) {
         toast.success("Sub Category Added Successfully");
-        router.push("/admin");
+        handleNavigate();
       }
     } catch (error) {
       console.log(error);

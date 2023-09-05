@@ -30,6 +30,9 @@ export default function Page() {
     }
     fetchCategories();
   }, []);
+  function handleNavigate() {
+    router.push("/admin");
+  }
   // console.log(image);
   async function handleFormSubmit(e) {
     e.preventDefault();
@@ -56,7 +59,7 @@ export default function Page() {
       console.log(resp.data);
       if (resp.status === 200) {
         toast.success("Banner Created successfully");
-        router.push("/admin");
+        handleNavigate();
       }
     } catch (error) {
       console.log(error);

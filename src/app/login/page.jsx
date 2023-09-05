@@ -9,11 +9,17 @@ import { toast } from "react-hot-toast";
 
 export default function Page() {
   const router = useRouter();
+  function handleNavigate() {
+    router.push("/admin");
+  }
+  function handleNavigateHome() {
+    router.push("/");
+  }
   if (getCookie("token")) {
     if (getCookie("role") === "user") {
-      return router.push("/");
+      return handleNavigateHome();
     } else {
-      return router.push("/admin");
+      return handleNavigate();
     }
   }
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -35,9 +41,9 @@ export default function Page() {
         document.cookie = `user_role=${resp.data.user.role}; path="/"`;
 
         if (resp.data.user.role === "user") {
-          router.push("/");
+          handleNavigateHome();
         } else {
-          router.push("/admin");
+          handleNavigate();
         }
       }
 

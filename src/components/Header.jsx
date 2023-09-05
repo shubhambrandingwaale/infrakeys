@@ -59,6 +59,10 @@ export default function Header() {
     }
   }, [debouncedSearch]);
 
+  function handleNavigate() {
+    router.push("/login");
+  }
+
   return (
     <>
       <header>
@@ -173,7 +177,7 @@ export default function Header() {
                                     ";path=/"
                                 );
                             });
-                            router.push("/login");
+                            handleNavigate();
                           }}
                         >
                           <FiLogOut />

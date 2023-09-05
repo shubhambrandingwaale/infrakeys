@@ -83,18 +83,6 @@ export default function Page() {
     setVisible(false);
   };
   useEffect(() => {
-    // async function getproducts(id) {
-    //   try {
-    //     const resp = await publicRequest.get(`/recently-viewed/${id}`, {
-    //       headers: { Authorization: `Bearer ${getCookie("token")}` },
-    //     });
-    //     setProducts(resp.data);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
-    // getproducts(id);
-
     (async function () {
       try {
         const resp = await publicRequest.get(`/users/${getCookie("user_id")}`, {
