@@ -9,6 +9,8 @@ import AdminHeading from "./AdminHeading";
 
 export default function AddDesc({ productId, inputs, setInputs }) {
   const [descriptions, setDescriptions] = useState([]);
+  console.log(inputs);
+  console.log(descriptions);
 
   async function handleFormDesc(e) {
     e.preventDefault();
@@ -29,24 +31,24 @@ export default function AddDesc({ productId, inputs, setInputs }) {
     }
   }
 
-  async function handleAddDesc() {
+  async function handleAddDesc(id) {
     if (!inputs.description) {
       return toast.error("Input can't be empty!");
     }
-
-    const resp = await publicRequest.post(
-      `/product-descriptions`,
-      {
-        descriptions: [inputs.description],
-        product_id: productId,
-      },
-      { headers: { Authorization: `Bearer ${getCookie("token")}` } }
-    );
-    console.log(resp.data.descriptions[0]);
-    if (resp.status === 200) {
-      toast.success("description added successfully");
-      setDescriptions((prev) => [...prev, resp.data.descriptions[0]]);
-    }
+    setDescriptions((prev) => [...prev, inputs.description]);
+    // const resp = await publicRequest.post(
+    //   `/product-descriptions`,
+    //   {
+    //     descriptions: [inputs.description],
+    //     product_id: productId,
+    //   },
+    //   { headers: { Authorization: `Bearer ${getCookie("token")}` } }
+    // );
+    // console.log(resp.data.descriptions[0]);
+    // if (resp.status === 200) {
+    //   toast.success("description added successfully");
+    //   setDescriptions((prev) => [...prev, resp.data.descriptions[0]]);
+    // }
 
     setInputs((prev) => ({
       ...prev,
@@ -66,13 +68,14 @@ export default function AddDesc({ productId, inputs, setInputs }) {
   }, [productId]);
 
   async function handleDescDelete(id) {
-    const resp = await publicRequest.delete(`/product-descriptions/${id}`, {
-      headers: { Authorization: `Bearer ${getCookie("token")}` },
-    });
-    if (resp.status === 200) {
-      toast.success("Desc deleted successfully.");
-      setDescriptions((prev) => prev.filter((item) => item.id !== id));
-    }
+    setDescriptions((prev) => prev.filter((item, key) => key !== id));
+    // const resp = await publicRequest.delete(`/product-descriptions/${id}`, {
+    //   headers: { Authorization: `Bearer ${getCookie("token")}` },
+    // });
+    // if (resp.status === 200) {
+    //   toast.success("Desc deleted successfully.");
+    //   setDescriptions((prev) => prev.filter((item) => item.id !== id));
+    // }
   }
 
   return (
@@ -118,12 +121,12 @@ export default function AddDesc({ productId, inputs, setInputs }) {
             {descriptions?.map((item, key) => {
               return (
                 <li key={key} className="lsn">
-                  {item.description}
+                  {item}
                   <div className="col-lg-1 centerit mt-3">
                     <button
                       type="button"
                       className="deleteBtn"
-                      onClick={() => handleDescDelete(item.id)}
+                      onClick={() => handleDescDelete(key)}
                     >
                       <AiOutlineDelete />
                     </button>

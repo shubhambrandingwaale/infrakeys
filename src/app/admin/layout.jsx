@@ -18,6 +18,14 @@ const Adminlayout = ({ children }) => {
   function handleNavigate() {
     router.push("/login");
   }
+  function clearCookie() {
+    document.cookie.split(";").forEach(function (c) {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+    handleNavigate();
+  }
   return (
     <>
       <div className="d-flex justify-content-between pt-3 px-3">
@@ -30,20 +38,7 @@ const Adminlayout = ({ children }) => {
             <Image src="/logo.png" height={70} width={140} alt="Logo" />
           </Link>
         </div>
-        <button
-          className="whiteBtn"
-          onClick={() => {
-            document.cookie.split(";").forEach(function (c) {
-              document.cookie = c
-                .replace(/^ +/, "")
-                .replace(
-                  /=.*/,
-                  "=;expires=" + new Date().toUTCString() + ";path=/"
-                );
-            });
-            handleNavigate();
-          }}
-        >
+        <button className="whiteBtn" onClick={() => clearCookie()}>
           Logout
           <MdLogout />
         </button>

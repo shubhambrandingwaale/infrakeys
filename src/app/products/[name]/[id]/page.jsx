@@ -1,5 +1,4 @@
 "use client";
-import CenterHeading from "@/components/CenterHeading";
 import IndustryCard from "@/components/IndustryCard";
 import Relatedproducts from "@/components/Relatedproducts";
 import Productslider from "@/components/Productslider";
@@ -187,7 +186,7 @@ export default function Page({ params: { id } }) {
   return (
     <>
       <ProductBread name={product?.title} />
-      <section className="productAbout commonSection">
+      <section className="productAbout ligtbgSection mt-section">
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-5">
@@ -257,7 +256,7 @@ export default function Page({ params: { id } }) {
       </section>
       <section className="productFeatures">
         <div className="container-fluid">
-          <CenterHeading heading="Features" />
+          <CenterAttachheading heading="Features" />
           <div className="row">
             <div className="col-12">
               <div className="featureBox">
@@ -278,9 +277,9 @@ export default function Page({ params: { id } }) {
           </div>
         </div>
       </section>
-      <section className="usedBy commonSection">
+      <section className="usedBy ligtbgSection mt-section">
         <div className="container-fluid">
-          <CenterHeading heading=" Used By Industries" />
+          <CenterAttachheading heading=" Used By Industries" />
           <div className="row mt-3">
             {productUsedBy?.map((item) => {
               return <IndustryCard item={item} key={item.id} />;
@@ -288,8 +287,8 @@ export default function Page({ params: { id } }) {
           </div>
         </div>
       </section>
-      <section className="applications commonSection">
-        <CenterHeading heading="Applications" />
+      <section className="applications ligtbgSection mt-section">
+        <CenterAttachheading heading="Applications" />
         <div className="container-fluid">
           <div className="row">
             <div className="col-12">

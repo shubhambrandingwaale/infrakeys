@@ -136,7 +136,7 @@ export default function Page() {
                   <ActionBtn
                     name="Add Banners"
                     link="/admin/banners/add"
-                    icon={<MdOutlineFactory />}
+                    icon={<HiViewGridAdd />}
                   />
                   <ActionBtn
                     name="View All Banners"

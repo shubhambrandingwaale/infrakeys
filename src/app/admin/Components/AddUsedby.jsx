@@ -29,7 +29,7 @@ export default function AddUsedby({ productId }) {
   }
 
   const handleAddItem = (option) => {
-    console.log(JSON.parse(option).id);
+    console.log(JSON.parse(option));
     setSelectedItems((prev) => [...prev, JSON.parse(option)]);
 
     setOptions((prev) =>
@@ -107,7 +107,7 @@ export default function AddUsedby({ productId }) {
           <div key={item.id} className="col-md-4 col-sm-4 col-6 mt-3">
             <div className="cardIndustry">
               <Image
-                src={item.image}
+                src={`https://infrakeysapp.in${item.image}`}
                 width={40}
                 height={40}
                 alt="will change later"

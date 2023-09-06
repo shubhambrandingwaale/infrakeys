@@ -35,11 +35,11 @@ export default function Page() {
       const resp = await publicRequest.post(`/auth/login`, { ...inputVals });
       if (resp.status === 200) {
         toast.success("You are now logged in.");
-        document.cookie = `token=${resp.data.access_token}; path="/"`;
-        document.cookie = `user_fullname=${resp.data.user.fullname}; path="/"`;
-        document.cookie = `user_email=${resp.data.user.email}; path="/"`;
-        document.cookie = `user_id=${resp.data.user.id}; path="/"`;
-        document.cookie = `user_role=${resp.data.user.role}; path="/"`;
+        document.cookie = `token=${resp.data.access_token}; path=/`;
+        document.cookie = `user_fullname=${resp.data.user.fullname}; path=/`;
+        document.cookie = `user_email=${resp.data.user.email}; path=/`;
+        document.cookie = `user_id=${resp.data.user.id}; path=/`;
+        document.cookie = `user_role=${resp.data.user.role}; path=/`;
 
         if (resp.data.user.role === "user") {
           handleNavigateHome();

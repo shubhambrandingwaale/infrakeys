@@ -41,13 +41,14 @@ export default function AddApplications({ productId, inputs, setInputs }) {
     }));
   }
   async function handleApplicationDelete(id) {
-    const resp = await publicRequest.delete(`/product-applications/${id}`, {
-      headers: { Authorization: `Bearer ${getCookie("token")}` },
-    });
-    if (resp.status === 200) {
-      toast.success("Application deleted successfully.");
-      setApplications((prev) => prev.filter((item) => item.id !== id));
-    }
+    setApplications((prev) => prev.filter((item, key) => key !== id));
+    // const resp = await publicRequest.delete(`/product-applications/${id}`, {
+    //   headers: { Authorization: `Bearer ${getCookie("token")}` },
+    // });
+    // if (resp.status === 200) {
+    //   toast.success("Application deleted successfully.");
+    //   setApplications((prev) => prev.filter((item) => item.id !== id));
+    // }
   }
   return (
     <div className="container-fluid">
@@ -94,7 +95,7 @@ export default function AddApplications({ productId, inputs, setInputs }) {
                         <button
                           type="button"
                           className="deleteBtn"
-                          onClick={() => handleApplicationDelete(item.id)}
+                          onClick={() => handleApplicationDelete(key)}
                         >
                           <AiOutlineDelete />
                         </button>

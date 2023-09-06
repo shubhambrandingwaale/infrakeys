@@ -53,7 +53,7 @@ export default function Page() {
                       <p>
                         {product.about.length > 150
                           ? product.about.substring(0, 150) + "..."
-                          : product.about}{" "}
+                          : product.about}
                       </p>
                     </div>
                     <Link

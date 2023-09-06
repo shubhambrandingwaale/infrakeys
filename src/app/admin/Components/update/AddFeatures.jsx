@@ -132,21 +132,25 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
           <ul className="pointList">
             {features?.map((item, key) => {
               return (
-                <li key={key} className="lsn row mt-1">
-                  <div className="col-lg-3">
-                    <b>{item.title} :</b>
-                  </div>
-                  <div className="col-lg-8">
-                    <p>{item.feature}</p>
-                  </div>
-                  <div className="col-lg-1 centerit mt-3">
-                    <button
-                      type="button"
-                      className="deleteBtn"
-                      onClick={() => handleFeatureDelete(item.id)}
-                    >
-                      <AiOutlineDelete />
-                    </button>
+                <li key={key} className="lsn px-3">
+                  <div className="row mt-3">
+                    <div className="col-lg-3">
+                      <b>{item.title}</b>
+                    </div>
+                    <div className="col-lg-8">
+                      <p>{item.feature}</p>
+                    </div>
+                    {features.length > 0 && (
+                      <div className="col-lg-1 centerit">
+                        <button
+                          type="button"
+                          className="deleteBtn"
+                          onClick={() => handleFeatureDelete(key)}
+                        >
+                          <AiOutlineDelete />
+                        </button>
+                      </div>
+                    )}
                   </div>
                 </li>
               );

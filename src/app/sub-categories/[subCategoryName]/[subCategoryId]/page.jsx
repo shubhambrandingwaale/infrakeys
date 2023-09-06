@@ -41,7 +41,11 @@ export default function Page({ params: { subCategoryId } }) {
                       <Link href="/">
                         <h3>{product?.title}</h3>
                       </Link>
-                      <p>{product?.about}... </p>
+                      <p>
+                        {product.about.length > 150
+                          ? product.about.substring(0, 150) + "..."
+                          : product.about}
+                      </p>
                       <Viewmore
                         viewLink={`/products/${product?.title
                           .toLowerCase()
