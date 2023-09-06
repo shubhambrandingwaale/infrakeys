@@ -147,8 +147,9 @@ export default function Page({ params: { id } }) {
       try {
         const resp = await publicRequest.get(`/product-used-by/products/${id}`);
         setProductUsedBy(resp.data);
+        console.log(resp.data);
       } catch (error) {
-        console.log(error);
+        console.log(error.message);
       }
     })();
   }, [id]);
@@ -182,7 +183,7 @@ export default function Page({ params: { id } }) {
     }
     fetchRecentlyViewed(getCookie("user_id"));
   }, [id]);
-
+  console.log(product);
   return (
     <>
       <ProductBread name={product?.title} />
@@ -203,10 +204,10 @@ export default function Page({ params: { id } }) {
                         <SwiperSlide key={key}>
                           <div className="productSlides">
                             <Image
-                              src={`https:/infrakeysapp.in${image}`}
+                              src={`https://infrakeysapp.in${image}`}
                               height={500}
                               width={800}
-                              alt="shubs"
+                              alt="Images"
                               title="Shubham"
                             />
                           </div>

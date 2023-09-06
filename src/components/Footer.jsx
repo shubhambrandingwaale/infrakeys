@@ -100,7 +100,7 @@ export default function Footer() {
                     <li>
                       <a href="tel:+919810103410">
                         <BsPhoneFill />
-                        <span>All Categories will be map here</span>
+                        <span>+91 9810103410</span>
                       </a>
                       <a href="mail:info@infrakeys.com">
                         <BsFillEnvelopeAtFill />

@@ -2,6 +2,7 @@
 import CenterHeading from "@/components/CenterHeading";
 import { publicRequest } from "@/libs/requestMethods";
 import { getCookie } from "@/utils/getCookie";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -60,6 +61,7 @@ export default function Page() {
             <div className="col-lg-4 col-sm-8">
               <div className="loginForm">
                 <form onSubmit={(e) => handleLogin(e)}>
+                  <Image src="/logo.png" height={65} width={150} alt="Logo" />
                   <CenterHeading heading="Login" />
                   <input
                     type="email"
