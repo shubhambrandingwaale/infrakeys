@@ -21,7 +21,7 @@ export default function Footer() {
       <footer>
         <div className="mainfooter">
           <div className="container">
-            <div className="showsmall spcbtwn">
+            <div className="showsmall justify-content-end gap-10">
               <a className="buysell" href="/" target="_blank">
                 <BsBag /> Buy
               </a>
@@ -40,6 +40,7 @@ export default function Footer() {
             <div className="row">
               <div className="col-md-4 p-3">
                 <div className="footerAbout">
+                  <Image src="/logo.png" alt="logo" height={90} width={250} />
                   <p>
                     We are utilizing the advanced hardware and refined
                     innovations for creating the items and that is under

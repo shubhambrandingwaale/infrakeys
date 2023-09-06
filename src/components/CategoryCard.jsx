@@ -6,7 +6,7 @@ import React from "react";
 export default function CategoryCard({ category }) {
   return (
     <>
-      <div className="col-lg-2 col-md-3 col-sm-4 col-6">
+      <div className="col">
         <div className="categoryCard">
           <Link
             href={`/categories/${category.name

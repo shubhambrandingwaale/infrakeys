@@ -39,14 +39,14 @@ $lightColor: #ffede4;
     margin-top: 10px;
   }
   .heroSliderBox {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   section.hero {
     padding: 10px;
   }
   .categoryCard a img {
-    width: 100px;
-    height: 75px;
+    width: 130px;
+    height: 85px;
   }
   .categoryCard a span {
     font-size: 15px;
@@ -71,6 +71,28 @@ $lightColor: #ffede4;
   }
   .categoryCard {
     padding: 0px;
+  }
+  section.createSection {
+    padding: 10px;
+    margin: 0px;
+  }
+  ul.react-tabs__tab-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    flex-flow: row nowrap;
+    scroll-snap-type: x mandatory;
+    width: 100%;
+  }
+  .react-tabs__tab {
+    scroll-snap-align: center;
+  }
+  .homeSlides img {
+    width: 100%;
+    height: 100%;
   }
 }
 @media (max-width: $miniphone) {

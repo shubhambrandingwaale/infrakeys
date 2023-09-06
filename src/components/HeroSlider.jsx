@@ -45,7 +45,7 @@ export default function HeroSlider() {
                 >
                   <Image
                     src={`https://infrakeysapp.in${slide.banner_url}`}
-                    width={720}
+                    width={900}
                     alt={`${slide.name} | Home Screen Banners | Infrakeys`}
                     height={300}
                   />

@@ -72,6 +72,10 @@ export default function Page({ params: { id } }) {
           },
         }
       );
+      console.log(resp.data);
+      if (resp.status === 200) {
+        toast.success("Product Enquiry sent sucessfully");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -154,16 +158,17 @@ export default function Page({ params: { id } }) {
   }, [id]);
 
   useEffect(() => {
-    (async function () {
-      try {
-        const resp = await publicRequest.get(
-          `/products/related-products/${product.sub_category_id}`
-        );
-        setRelatedProducts(resp.data);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    product.sub_category_id &&
+      (async function () {
+        try {
+          const resp = await publicRequest.get(
+            `/products/related-products/${product.sub_category_id}`
+          );
+          setRelatedProducts(resp.data);
+        } catch (error) {
+          console.log(error);
+        }
+      })();
   }, [product.sub_category_id]);
 
   useEffect(() => {

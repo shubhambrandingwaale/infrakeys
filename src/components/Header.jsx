@@ -93,28 +93,32 @@ export default function Header() {
             {isInputValid && (
               <div className="searchList">
                 <ul>
-                  {searchResults?.map((item, key) => {
-                    return (
-                      <li key={key}>
-                        <Link
-                          href={`/products/${item.title
-                            .toLowerCase()
-                            .split(" ")
-                            .join("-")}/${item.id}`}
-                          title={item.title}
-                        >
-                          <div className="searchLink">
-                            <span
-                              title="TMT Sariya Bars"
-                              className="searchName"
-                            >
-                              {item.title}
-                            </span>
-                          </div>
-                        </Link>
-                      </li>
-                    );
-                  })}
+                  {searchResults?.length > 0 ? (
+                    searchResults?.map((item, key) => {
+                      return (
+                        <li key={key}>
+                          <Link
+                            href={`/products/${item.title
+                              .toLowerCase()
+                              .split(" ")
+                              .join("-")}/${item.id}`}
+                            title={item.title}
+                          >
+                            <div className="searchLink">
+                              <span
+                                title="TMT Sariya Bars"
+                                className="searchName"
+                              >
+                                {item.title}
+                              </span>
+                            </div>
+                          </Link>
+                        </li>
+                      );
+                    })
+                  ) : (
+                    <li>No product found</li>
+                  )}
                 </ul>
               </div>
             )}
@@ -136,7 +140,6 @@ export default function Header() {
               <button onClick={barHideShow} className="username">
                 <>
                   hello
-                  <PiHandsPraying />
                   <span>{getCookie("user_fullname")}</span>
                 </>
               </button>

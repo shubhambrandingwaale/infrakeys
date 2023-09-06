@@ -334,7 +334,7 @@ export default function Page() {
                                       <div className="productCard">
                                         <div className="productImg">
                                           <Image
-                                            src={`https://infrakeysapp.in${productItem.images}`}
+                                            src={`https://infrakeysapp.in${productItem.images[0]}`}
                                             height={150}
                                             width={300}
                                             alt={`${productItem.title} product | Infrakeys`}
