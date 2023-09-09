@@ -29,7 +29,7 @@ export default function MainLayout({ children }) {
           notification={true}
           notificationSound={true}
           onNotification
-          chatMessage="Hello, We are here to help , just tell us how we can Help you"
+          chatMessage="Hello, How can i help you"
           statusMessage="Typically replies instantly"
           accountName="Ankit Goyal"
           phoneNumber="+919810505025"
