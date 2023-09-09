@@ -1,8 +1,9 @@
 "use client";
 import { publicRequest } from "@/libs/requestMethods";
 import { getCookie } from "@/utils/getCookie";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEye } from "react-icons/ai";
 
 export default function Page() {
   const [customers, setCustomers] = useState([]);
@@ -34,6 +35,7 @@ export default function Page() {
                   <th>Contact Number</th>
                   <th>Joined at</th>
                   <th>Location</th>
+                  <th>actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -46,9 +48,22 @@ export default function Page() {
                         <td>{customer.email}</td>
                         <td>{customer.phone}</td>
                         <td>
+                          {new Date(customer.created_at).toDateString()}
+                        </td>{" "}
+                        <td>
                           {customer.city}, {customer.state}
                         </td>
-                        <td>{customer.created_at}</td>
+                        <td>
+                          <Link
+                            className="viewBtn"
+                            href={`/admin/customers/${customer.fullname
+                              .toLowerCase()
+                              .split(" ")
+                              .join("-")}/${customer.id}`}
+                          >
+                            <AiOutlineEye />
+                          </Link>
+                        </td>
                       </tr>
                     )
                   );

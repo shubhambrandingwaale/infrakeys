@@ -46,17 +46,11 @@ export default function Page() {
                       <Tab>
                         About Product <AiOutlineInfoCircle />
                       </Tab>
-                      <Tab default>
-                        Description <BiBookContent />
-                      </Tab>
                       <Tab>
                         Features <MdOutlineFeaturedPlayList />
                       </Tab>
                       <Tab>
                         Used by Industries <MdOutlineFactory />
-                      </Tab>
-                      <Tab>
-                        Applications <TbBrandAppleArcade />
                       </Tab>
                     </TabList>
                   </div>
@@ -72,17 +66,6 @@ export default function Page() {
                           setProductId={setProductId}
                         />
                       </TabPanel>
-                      <TabPanel
-                        className="tabEditor"
-                        id="addDesc"
-                        default={true}
-                      >
-                        <AddDesc
-                          productId={productId}
-                          inputs={inputs}
-                          setInputs={setInputs}
-                        />
-                      </TabPanel>
                       <TabPanel className="tabEditor" id="features">
                         <AddFeatures
                           productId={productId}
@@ -92,13 +75,6 @@ export default function Page() {
                       </TabPanel>
                       <TabPanel className="tabEditor" id="usedBy">
                         <AddUsedby
-                          productId={productId}
-                          inputs={inputs}
-                          setInputs={setInputs}
-                        />
-                      </TabPanel>
-                      <TabPanel className="tabEditor" id="applications">
-                        <AddApplications
                           productId={productId}
                           inputs={inputs}
                           setInputs={setInputs}

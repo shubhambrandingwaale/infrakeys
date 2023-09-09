@@ -1,11 +1,13 @@
 "use client";
+import LeftHeading from "@/components/LeftHeading";
 import { publicRequest } from "@/libs/requestMethods";
 import { getCookie } from "@/utils/getCookie";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { BsEnvelopeOpen, BsPhone, BsPinMap, BsSearch } from "react-icons/bs";
+import { BsEnvelopeOpen, BsPhone, BsPinMap } from "react-icons/bs";
 import { TfiDropboxAlt } from "react-icons/tfi";
+import { IoIosEye } from "react-icons/io";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
@@ -73,11 +75,23 @@ export default function Page({ params: { id } }) {
                 <ul className="clientInfoList">
                   <li>
                     <BsPhone />
-                    <span>{user.phone}</span>
+                    <a
+                      title="Click to chat on whatsapp"
+                      href={`https://wa.me/+91${user.phone}`}
+                      className="d-block textLink"
+                    >
+                      {user.phone}
+                    </a>
                   </li>
                   <li>
                     <BsEnvelopeOpen />
-                    <span>{user.email}</span>
+                    <a
+                      title="Click to send email "
+                      href={`mailto:${user.email}`}
+                      className="d-block textLink"
+                    >
+                      {user.email}
+                    </a>
                   </li>
                   <li>
                     <BsPinMap />
@@ -90,12 +104,12 @@ export default function Page({ params: { id } }) {
                 </ul>
               </div>
             </div>
-            <div className="col-lg-8 mt-3">
+            <div className="col-lg-8">
               <div className="statsTable">
                 <div className="spcbtwn mb-3">
                   <h4>
                     <TfiDropboxAlt />
-                    All Raised Product Enquries by {user.fullname}
+                    All Raised Product Enquries by
                   </h4>
                 </div>
                 <table>
@@ -112,7 +126,7 @@ export default function Page({ params: { id } }) {
                         <tr key={query.id}>
                           <td>{key + 1}</td>
                           <td>{query.title}</td>
-                          <td>{query.timestamp}</td>
+                          <td>{new Date(query.timestamp).toDateString()}</td>
                         </tr>
                       );
                     })}
@@ -121,7 +135,12 @@ export default function Page({ params: { id } }) {
               </div>
             </div>
             <div className="col-12 mt-3">
-              <div className="commonBox">
+              <div className="commonBox h-auto">
+                <div className="spcbtwn">
+                  <h4 className="mb-3">
+                    <IoIosEye /> {`Recently Viewed by ${user.fullname}`}
+                  </h4>
+                </div>
                 <Swiper
                   className="productAboutSlider"
                   pagination={true}
@@ -136,13 +155,13 @@ export default function Page({ params: { id } }) {
                       spaceBetween: 40,
                     },
                     1024: {
-                      slidesPerView: 3,
-                      spaceBetween: 50,
+                      slidesPerView: 4,
+                      spaceBetween: 20,
                     },
                   }}
                 >
-                  {products?.map((productItem, key) => (
-                    <SwiperSlide key={key}>
+                  {products?.map((productItem) => (
+                    <SwiperSlide key={productItem.id}>
                       <div className="productCard">
                         <div className="productImg">
                           <Image
@@ -156,8 +175,8 @@ export default function Page({ params: { id } }) {
                           <Link href="/">
                             <h3>{productItem.title}</h3>
                           </Link>
-                          <p>{productItem.about}... </p>
                           <Link
+                            className="viewMore"
                             href={`/products/${productItem.title
                               .toLowerCase()
                               .split(" ")

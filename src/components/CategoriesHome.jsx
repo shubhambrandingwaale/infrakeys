@@ -1,10 +1,20 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import CenterHeading from "./CenterHeading";
 import CategoryCard from "./CategoryCard";
 import { publicRequest } from "@/libs/requestMethods";
-export default async function CategoriesHome({}) {
-  const resp = await publicRequest.get("/categories");
-  const data = resp.data;
+export default function CategoriesHome() {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    (async function () {
+      try {
+        const resp = await publicRequest.get("/categories");
+        setData(resp.data);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   return (
     <>

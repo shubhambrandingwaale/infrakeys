@@ -139,7 +139,7 @@ export default function Header() {
             {getCookie("token") ? (
               <button onClick={barHideShow} className="username">
                 <>
-                  hello
+                  Hello
                   <span>{getCookie("user_fullname")}</span>
                 </>
               </button>
@@ -219,8 +219,7 @@ export default function Header() {
               {getCookie("token") ? (
                 <button onClick={barHideShow} className="username">
                   <>
-                    hello
-                    <PiHandsPraying />
+                    Hello
                     <span>{getCookie("user_fullname")}</span>
                   </>
                 </button>

@@ -164,16 +164,25 @@ section.commonSection {
   box-shadow: 0 5px 10px -5px #ddd;
 }
 .commonBtn {
-  background: #fb5001;
+  background: $primary;
   color: $white;
   font-weight: 600;
-  border: 1px solid rgba(0, 0, 0, 0);
-  border-radius: 10px;
+  border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 5px 15px;
+  border: none;
+  outline: 2px solid #0000;
+  outline-offset: -5px;
+  padding: 7px 15px;
+  transition: $smooth;
+  &:hover {
+    color: $primary;
+    background: $white;
+    outline: 2px solid $primary;
+    outline-offset: 2px;
+  }
 }
 .centerHeading {
   text-align: center;
@@ -214,19 +223,19 @@ section.loginSection {
 }
 .statsCard {
   position: relative;
-  background: #efedff;
+  background: $lightColor;
   border-radius: 20px;
-  box-shadow: 0 7px 10px -5px #bbb;
+  box-shadow: 0 7px 10px -5px #ddd;
   padding: 20px;
 
   svg {
     position: absolute;
-    font-size: 40px;
+    font-size: 30px;
     top: 10px;
     right: 10px;
-    border: 1px dashed #ccc;
     border-radius: 10px;
-    transition: $smooth;
+    transition: 0.4s ease-in-out;
+    color: $primary;
   }
 }
 
@@ -1189,4 +1198,16 @@ a.viewBtn:hover {
 }
 .swiper-pagination-bullet {
   background: $primary;
+}
+.textLink {
+  color: $darkColor;
+  transition: $smooth;
+  text-decoration: underline;
+  text-decoration-color: #0000;
+
+  &:hover {
+    text-decoration-color: $primary;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
 }

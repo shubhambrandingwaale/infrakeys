@@ -98,18 +98,18 @@ export default function Page({ params: { id } }) {
                       <Tab>
                         About Product <AiOutlineInfoCircle />
                       </Tab>
-                      <Tab>
+                      {/* <Tab>
                         Description <BiBookContent />
-                      </Tab>
+                      </Tab> */}
                       <Tab>
                         Features <MdOutlineFeaturedPlayList />
                       </Tab>
                       <Tab>
                         Used by Industries <MdOutlineFactory />
                       </Tab>
-                      <Tab>
+                      {/* <Tab>
                         Applications <TbBrandAppleArcade />
-                      </Tab>
+                      </Tab> */}
                     </TabList>
                   </div>
                 </div>
@@ -126,7 +126,7 @@ export default function Page({ params: { id } }) {
                           />
                         )}
                       </TabPanel>
-                      <TabPanel className="tabEditor" id="addDesc">
+                      {/* <TabPanel className="tabEditor" id="addDesc">
                         {productId && (
                           <AddDesc
                             productId={productId}
@@ -134,7 +134,7 @@ export default function Page({ params: { id } }) {
                             setInputs={setInputs}
                           />
                         )}
-                      </TabPanel>
+                      </TabPanel> */}
                       <TabPanel className="tabEditor" id="features">
                         {productId && (
                           <AddFeatures
@@ -153,7 +153,7 @@ export default function Page({ params: { id } }) {
                           />
                         )}
                       </TabPanel>
-                      <TabPanel className="tabEditor" id="applications">
+                      {/* <TabPanel className="tabEditor" id="applications">
                         {productId && (
                           <AddApplications
                             productId={productId}
@@ -161,7 +161,7 @@ export default function Page({ params: { id } }) {
                             setInputs={setInputs}
                           />
                         )}
-                      </TabPanel>
+                      </TabPanel> */}
                     </div>
                   </div>
                 </div>

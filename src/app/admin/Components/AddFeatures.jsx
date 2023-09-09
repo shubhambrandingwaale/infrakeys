@@ -32,9 +32,6 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
   }
 
   function handleAddFeature() {
-    if (!inputs.featureTitle) {
-      return toast.error("please fill the title!");
-    }
     if (!inputs.featureDesc) {
       return toast.error("please fill the feature description!");
     }
@@ -70,25 +67,7 @@ export default function AddFeatures({ productId, inputs, setInputs }) {
       <AdminHeading heading="Add Features" />
       <form onSubmit={handleFormFeatures}>
         <div className="row">
-          <div className="col-lg-3 mt-3">
-            <div className="inputGroup">
-              <input
-                type="text"
-                name="featureTitle"
-                autoComplete="off"
-                className="createInput"
-                value={inputs.featureTitle}
-                onChange={(e) =>
-                  setInputs((prev) => ({
-                    ...prev,
-                    [e.target.name]: e.target.value,
-                  }))
-                }
-              />
-              <label className="user-label">Write Feature</label>
-            </div>
-          </div>
-          <div className="col-lg-8 mt-3">
+          <div className="col-lg-11 mt-3">
             <div className="inputGroup">
               <input
                 type="text"

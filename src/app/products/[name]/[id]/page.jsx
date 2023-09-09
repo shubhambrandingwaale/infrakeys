@@ -16,6 +16,7 @@ import { getCookie } from "@/utils/getCookie";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { RxCross1 } from "react-icons/rx";
+import { FcApproval } from "react-icons/fc";
 import { Navigation } from "swiper/modules";
 import { BsChevronRight } from "react-icons/bs";
 
@@ -32,7 +33,6 @@ import { BsChevronRight } from "react-icons/bs";
 // }
 
 export default function Page({ params: { id } }) {
-  // console.log(id);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [recentltViewed, setRecentltViewed] = useState([]);
   const [product, setProduct] = useState({});
@@ -74,7 +74,18 @@ export default function Page({ params: { id } }) {
       );
       console.log(resp.data);
       if (resp.status === 200) {
-        toast.success("Product Enquiry sent sucessfully");
+        return toast((t) => (
+          <span className="w300">
+            <div className="d-flex justify-content-between">
+              <h4>Product Enquiry raised</h4>
+              <FcApproval />
+            </div>
+            <h6>
+              Product enquiry raised successfully <br />
+              We will reach you soon
+            </h6>
+          </span>
+        ));
       }
     } catch (error) {
       console.log(error);
@@ -191,7 +202,7 @@ export default function Page({ params: { id } }) {
   return (
     <>
       <ProductBread name={product?.title} />
-      <section className="productAbout ligtbgSection mt-section">
+      <section className="productAbout ligtbgSection">
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-5">
@@ -239,7 +250,7 @@ export default function Page({ params: { id } }) {
           </div>
         </div>
       </section>
-      <section className="productDesc ligtbgSection mt-section">
+      {/* <section className="productDesc ligtbgSection mt-section">
         <CenterAttachheading heading="Description" />
         <div className="container-fluid">
           <div className="row">
@@ -258,41 +269,51 @@ export default function Page({ params: { id } }) {
             </div>
           </div>
         </div>
-      </section>
-      <section className="productFeatures">
-        <div className="container-fluid">
-          <CenterAttachheading heading="Features" />
-          <div className="row">
-            <div className="col-12">
-              <div className="featureBox">
-                <table>
-                  <tbody>
-                    {features?.map((item) => {
-                      return (
-                        <tr key={item.id}>
-                          <th>{item.title}</th>
-                          <td>{item.feature}</td>
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
+      </section> */}
+      {features.length > 0 ? (
+        <section className="productFeatures">
+          <div className="container-fluid">
+            <CenterAttachheading heading="Features" />
+            <div className="row">
+              <div className="col-12">
+                <div className="featureBox">
+                  <table>
+                    <tbody>
+                      {features?.map((item) => {
+                        return (
+                          <tr key={item.id}>
+                            <th>{item.title}</th>
+                            <td>{item.feature}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section className="usedBy ligtbgSection mt-section">
-        <div className="container-fluid">
-          <CenterAttachheading heading=" Used By Industries" />
-          <div className="row mt-3">
-            {productUsedBy?.map((item) => {
-              return <IndustryCard item={item} key={item.id} />;
-            })}
+        </section>
+      ) : (
+        ""
+      )}
+
+      {productUsedBy.length > 0 ? (
+        <section className="usedBy ligtbgSection mt-section">
+          <div className="container-fluid">
+            <CenterAttachheading heading=" Used By Industries" />
+            <div className="row mt-3">
+              {productUsedBy?.map((item) => {
+                return <IndustryCard item={item} key={item.id} />;
+              })}
+            </div>
           </div>
-        </div>
-      </section>
-      <section className="applications ligtbgSection mt-section">
+        </section>
+      ) : (
+        ""
+      )}
+
+      {/* <section className="applications ligtbgSection mt-section">
         <CenterAttachheading heading="Applications" />
         <div className="container-fluid">
           <div className="row">
@@ -311,137 +332,145 @@ export default function Page({ params: { id } }) {
             </div>
           </div>
         </div>
-      </section>
-      <section className="related ligtbgSection mt-section">
-        <div className="container-fluid">
-          <CenterAttachheading heading="Related Products" />
-          <div className="row">
-            <div className="col-12">
-              <Swiper
-                className="relatedProducts"
-                pagination={true}
-                modules={[Pagination]}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 3,
-                    spaceBetween: 40,
-                  },
-                  1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 20,
-                  },
-                }}
-              >
-                {relatedProducts?.map((productItem, key) => (
-                  <SwiperSlide key={key}>
-                    <div className="productCard">
-                      <div className="productImg">
-                        <Image
-                          src={`https://infrakeysapp.in${productItem.images[0]}`}
-                          height={150}
-                          width={300}
-                          alt={`${productItem.title} product | Infrakeys`}
-                        />
-                      </div>
-                      <div className="productContent">
-                        <Link
-                          href={`/products/${productItem.title
-                            .toLowerCase()
-                            .split(" ")
-                            .join("-")}/${productItem.id}`}
-                        >
-                          <h3>{productItem.title}</h3>
-                        </Link>
+      </section> */}
+      {relatedProducts.length > 0 ? (
+        <section className="related ligtbgSection mt-section">
+          <div className="container-fluid">
+            <CenterAttachheading heading="Related Products" />
+            <div className="row">
+              <div className="col-12">
+                <Swiper
+                  className="relatedProducts"
+                  pagination={true}
+                  modules={[Pagination]}
+                  breakpoints={{
+                    640: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                    },
+                    768: {
+                      slidesPerView: 3,
+                      spaceBetween: 40,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                      spaceBetween: 20,
+                    },
+                  }}
+                >
+                  {relatedProducts?.map((productItem, key) => (
+                    <SwiperSlide key={key}>
+                      <div className="productCard">
+                        <div className="productImg">
+                          <Image
+                            src={`https://infrakeysapp.in${productItem.images[0]}`}
+                            height={150}
+                            width={300}
+                            alt={`${productItem.title} product | Infrakeys`}
+                          />
+                        </div>
+                        <div className="productContent">
+                          <Link
+                            href={`/products/${productItem.title
+                              .toLowerCase()
+                              .split(" ")
+                              .join("-")}/${productItem.id}`}
+                          >
+                            <h3>{productItem.title}</h3>
+                          </Link>
 
-                        <Link
-                          title="View More"
-                          className="viewMore"
-                          href={`/products/${productItem.title
-                            .toLowerCase()
-                            .split(" ")
-                            .join("-")}/${productItem.id}`}
-                        >
-                          View Product
-                          <BsChevronRight />
-                        </Link>
+                          <Link
+                            title="View More"
+                            className="viewMore"
+                            href={`/products/${productItem.title
+                              .toLowerCase()
+                              .split(" ")
+                              .join("-")}/${productItem.id}`}
+                          >
+                            View Product
+                            <BsChevronRight />
+                          </Link>
+                        </div>
                       </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        ""
+      )}
 
-      <section className="related ligtbgSection mt-section">
-        <div className="container-fluid">
-          <CenterAttachheading heading="Recently Viewed Products" />
-          <div className="row">
-            <div className="col-12">
-              <Swiper
-                className="productAboutSlider"
-                pagination={true}
-                modules={[Pagination]}
-                breakpoints={{
-                  640: {
-                    slidesPerView: 2,
-                    spaceBetween: 20,
-                  },
-                  768: {
-                    slidesPerView: 3,
-                    spaceBetween: 40,
-                  },
-                  1024: {
-                    slidesPerView: 4,
-                    spaceBetween: 20,
-                  },
-                }}
-              >
-                {recentltViewed?.map((productItem, key) => (
-                  <SwiperSlide key={key}>
-                    <div className="productCard">
-                      <div className="productImg">
-                        <Image
-                          src={`https://infrakeysapp.in${productItem.images[0]}`}
-                          height={150}
-                          width={300}
-                          alt={`${productItem.title} product | Infrakeys`}
-                        />
+      {recentltViewed.length > 0 ? (
+        <section className="recentlyviewed ligtbgSection mt-section">
+          <div className="container-fluid">
+            <CenterAttachheading heading="Recently Viewed Products" />
+            <div className="row">
+              <div className="col-12">
+                <Swiper
+                  className="productAboutSlider"
+                  pagination={true}
+                  modules={[Pagination]}
+                  breakpoints={{
+                    640: {
+                      slidesPerView: 2,
+                      spaceBetween: 20,
+                    },
+                    768: {
+                      slidesPerView: 3,
+                      spaceBetween: 40,
+                    },
+                    1024: {
+                      slidesPerView: 4,
+                      spaceBetween: 20,
+                    },
+                  }}
+                >
+                  {recentltViewed?.map((productItem, key) => (
+                    <SwiperSlide key={key}>
+                      <div className="productCard">
+                        <div className="productImg">
+                          <Image
+                            src={`https://infrakeysapp.in${productItem.images[0]}`}
+                            height={150}
+                            width={300}
+                            alt={`${productItem.title} product | Infrakeys`}
+                          />
+                        </div>
+                        <div className="productContent">
+                          <Link
+                            href={`/products/${productItem.title
+                              .toLowerCase()
+                              .split(" ")
+                              .join("-")}/${productItem.id}`}
+                          >
+                            <h3>{productItem.title}</h3>
+                          </Link>
+                          <Link
+                            title="View More"
+                            className="viewMore"
+                            href={`/products/${productItem.title
+                              .toLowerCase()
+                              .split(" ")
+                              .join("-")}/${productItem.id}`}
+                          >
+                            View Product
+                            <BsChevronRight />
+                          </Link>
+                        </div>
                       </div>
-                      <div className="productContent">
-                        <Link
-                          href={`/products/${productItem.title
-                            .toLowerCase()
-                            .split(" ")
-                            .join("-")}/${productItem.id}`}
-                        >
-                          <h3>{productItem.title}</h3>
-                        </Link>
-                        <Link
-                          title="View More"
-                          className="viewMore"
-                          href={`/products/${productItem.title
-                            .toLowerCase()
-                            .split(" ")
-                            .join("-")}/${productItem.id}`}
-                        >
-                          View Product
-                          <BsChevronRight />
-                        </Link>
-                      </div>
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      ) : (
+        ""
+      )}
     </>
   );
 }
