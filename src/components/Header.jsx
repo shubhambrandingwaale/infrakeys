@@ -131,9 +131,6 @@ export default function Header() {
               <BsReceipt />
               Sell
             </a>
-            <a href="wa.me/+919810505025" target="_blank">
-              <BsWhatsapp />
-            </a>
           </div>
           <div className="userView">
             {getCookie("token") ? (
