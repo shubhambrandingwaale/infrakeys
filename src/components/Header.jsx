@@ -136,8 +136,8 @@ export default function Header() {
             {getCookie("token") ? (
               <button onClick={barHideShow} className="username">
                 <>
-                  Hello
                   <span>{getCookie("user_fullname")}</span>
+                  <FiUser />
                 </>
               </button>
             ) : (
@@ -216,8 +216,8 @@ export default function Header() {
               {getCookie("token") ? (
                 <button onClick={barHideShow} className="username">
                   <>
-                    Hello
                     <span>{getCookie("user_fullname")}</span>
+                    <FiUser />
                   </>
                 </button>
               ) : (

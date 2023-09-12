@@ -4,7 +4,7 @@ import { BiListCheck } from "react-icons/bi";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import Image from "next/image";
-import { BsEye, BsInfoCircle, BsKey } from "react-icons/bs";
+import { BsChevronRight, BsEye, BsInfoCircle, BsKey } from "react-icons/bs";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination } from "swiper/modules";
@@ -142,7 +142,7 @@ export default function Page() {
                     </TabList>
                   </div>
                 </div>
-                <div className="col-lg-9">
+                <div className="col-lg-9 p-0">
                   <div className="tabContent">
                     <div className="tabForm">
                       <TabPanel className="tabEditor" id="addAbout">
@@ -341,16 +341,24 @@ export default function Page() {
                                           />
                                         </div>
                                         <div className="productContent">
-                                          <Link href="/">
+                                          <Link
+                                            className="d-block"
+                                            href={`/products/${productItem.title
+                                              .toLowerCase()
+                                              .split(" ")
+                                              .join("-")}/${productItem.id}`}
+                                          >
                                             <h3>{productItem.title}</h3>
                                           </Link>
                                           <Link
+                                            className="viewMore"
                                             href={`/products/${productItem.title
                                               .toLowerCase()
                                               .split(" ")
                                               .join("-")}/${productItem.id}`}
                                           >
                                             View Product
+                                            <BsChevronRight />
                                           </Link>
                                         </div>
                                       </div>
