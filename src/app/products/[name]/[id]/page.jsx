@@ -19,6 +19,7 @@ import { RxCross1 } from "react-icons/rx";
 import { FcApproval } from "react-icons/fc";
 import { Navigation } from "swiper/modules";
 import { BsChevronRight } from "react-icons/bs";
+import { useRouter } from "next/navigation";
 
 // export async function generateStaticParams() {
 //   const products = await publicRequest.get(`/products`).then((res) => res.data);
@@ -40,7 +41,30 @@ export default function Page({ params: { id } }) {
   const [features, setFeatures] = useState([]);
   const [descriptions, setDescriptions] = useState([]);
   const [productUsedBy, setProductUsedBy] = useState([]);
+  const router = useRouter();
+
+  function handleNavigate() {
+    router.push("/otpverify");
+  }
   // console.log(product);
+  async function sendOtp(e) {
+    console.log(getCookie("user_phone"));
+    e.preventDefault();
+    try {
+      const resp = await publicRequest.post("/send-otp", {
+        name: getCookie("user_fullname"),
+        phone: getCookie("user_phone"),
+      });
+      if (resp.data.result === true) {
+        toast.success("OTP has been sent to your Whatsapp");
+        handleNavigate();
+        console.log(resp.data);
+      }
+      setShowOtpinput(true);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   async function handleRaiseEnquiry(productId, userId) {
     if (!getCookie("token")) {
@@ -88,7 +112,23 @@ export default function Page({ params: { id } }) {
         ));
       }
     } catch (error) {
-      console.log(error);
+      return toast((t) => (
+        <span className="w300">
+          <div className="d-flex justify-content-between">
+            <h4>{error.response.data.message}</h4>
+            <button
+              className="mb-3 deleteBtn"
+              onClick={() => toast.dismiss(t.id)}
+            >
+              <RxCross1 />
+            </button>
+          </div>
+          <br />
+          <button className="commonBtn" onClick={sendOtp}>
+            Send OTP
+          </button>
+        </span>
+      ));
     }
   }
 
@@ -201,7 +241,10 @@ export default function Page({ params: { id } }) {
   console.log(product);
   return (
     <>
-      <ProductBread name={product?.title} />
+      <ProductBread
+        name={product?.title}
+        productUrl={`/products/${product?.title}/${product.id}`}
+      />
       <section className="productAbout ligtbgSection">
         <div className="container-fluid">
           <div className="row">

@@ -13,7 +13,9 @@ export default function ProductBread(props) {
           <Link href="/products">Products</Link>
         </li>
         <li>
-          <Link href="/">{props.name}</Link>
+          <Link href={props.productUrl.toLowerCase().split(" ").join("-")}>
+            {props.name}
+          </Link>
         </li>
       </ul>
     </section>

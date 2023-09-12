@@ -37,6 +37,7 @@ export default function Page() {
         toast.success("You are now logged in.");
         document.cookie = `token=${resp.data.access_token}; path=/`;
         document.cookie = `user_fullname=${resp.data.user.fullname}; path=/`;
+        document.cookie = `user_phone=${resp.data.user.phone}; path="/"`;
         document.cookie = `user_email=${resp.data.user.email}; path=/`;
         document.cookie = `user_id=${resp.data.user.id}; path=/`;
         document.cookie = `user_role=${resp.data.user.role}; path=/`;

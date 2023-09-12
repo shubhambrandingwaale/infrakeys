@@ -5,7 +5,7 @@ import Header from "./Header";
 import Footer from "./Footer";
 import { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
-import { FloatingWhatsApp } from "react-floating-whatsapp";
+// import { FloatingWhatsApp } from "react-floating-whatsapp";
 
 export default function MainLayout({ children }) {
   const pathname = usePathname();
@@ -22,7 +22,7 @@ export default function MainLayout({ children }) {
         {children}
         {!isAdminPage && !register && !login && !otpverify && <Footer />}
         <Toaster />
-        <FloatingWhatsApp
+        {/* <FloatingWhatsApp
           phoneNumber="123456789"
           accountName="Foo"
           notificationDelay={10}
@@ -33,7 +33,7 @@ export default function MainLayout({ children }) {
           statusMessage="Typically replies instantly"
           accountName="Ankit Goyal"
           phoneNumber="+919810505025"
-        />
+        /> */}
       </body>
     </html>
   );

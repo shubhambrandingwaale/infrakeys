@@ -1211,3 +1211,18 @@ a.viewBtn:hover {
     text-underline-offset: 5px;
   }
 }
+.otpBox {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 0;
+  margin-bottom: -20px;
+}
+.otpBox input {
+  width: 60%;
+  height: 40px;
+}
+.otpBox button {
+  width: 40%;
+  height: 40px;
+}
