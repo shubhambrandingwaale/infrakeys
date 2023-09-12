@@ -50,7 +50,7 @@ export default function Footer() {
                     <li>
                       <a
                         target="_blank"
-                        href="https://www.facebook.com/people/Infrakeys-ByArrant/pfbid02vhLM68PxwsGnKqL6HVdYLyw6EMhnTK6VdU9NTvUWWAJqVwvjqCawMe26Lq6LWZiQl/"
+                        href="https://www.facebook.com/profile.php?id=100094620322702"
                       >
                         <BsFacebook />
                       </a>
@@ -64,7 +64,10 @@ export default function Footer() {
                       </a>
                     </li>
                     <li>
-                      <a target="_blank" href="">
+                      <a
+                        target="_blank"
+                        href="https://www.linkedin.com/company/infrakeys.com/"
+                      >
                         <BsLinkedin />
                       </a>
                     </li>

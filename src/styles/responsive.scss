@@ -78,6 +78,9 @@
     scroll-snap-type: x mandatory;
     width: 100%;
   }
+  h2.attachedHeading {
+    font-size: 24px;
+  }
   .react-tabs__tab {
     scroll-snap-align: center;
   }
