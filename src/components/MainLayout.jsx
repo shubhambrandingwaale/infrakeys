@@ -32,7 +32,8 @@ export default function MainLayout({ children }) {
           chatMessage="Hello, How can i help you"
           statusMessage="Typically replies instantly"
           accountName="Ankit Goyal"
-          phoneNumber="+919810505025"
+          phoneNumber="+918130376622"
+          avatar="/icon.png"
         />
       </body>
     </html>

@@ -8,12 +8,15 @@ import {
   BsInstagram,
   BsLinkedin,
   BsPhoneFill,
+  BsPinMapFill,
   BsReceipt,
   BsWhatsapp,
 } from "react-icons/bs";
 import Link from "next/link";
 import { MdMarkEmailUnread } from "react-icons/md";
 import { ImLocation2 } from "react-icons/im";
+import { PiPhoneCallFill } from "react-icons/pi";
+import { FiSend } from "react-icons/fi";
 
 export default function Footer() {
   return (
@@ -103,19 +106,16 @@ export default function Footer() {
                   <ul>
                     <li>
                       <a href="tel:+918130376622">
-                        <BsPhoneFill />
+                        <PiPhoneCallFill />
                         <span>+91 8130376622</span>
                       </a>
                       <a href="mail:info@infrakeys.com">
-                        <BsFillEnvelopeAtFill />
+                        <FiSend />
                         <span>info@infrakeys.com</span>
                       </a>
                       <a href="#">
-                        <BsFillGeoAltFill />
-                        <span>
-                          519 & 520, the business hub, sec-81, greater
-                          faridabad-121007
-                        </span>
+                        <BsPinMapFill />
+                        <span>519 & 520, the business hub, sec-81,FBD</span>
                       </a>
                     </li>
                   </ul>
