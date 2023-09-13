@@ -12,22 +12,27 @@ export default function MainLayout({ children }) {
   const isAdminPage = pathname.startsWith("/admin");
   const register = pathname.startsWith("/login");
   const login = pathname.startsWith("/register");
+  const otpverify = pathname.startsWith("/otpverify");
   console.log(pathname);
   return (
     <html lang="en">
       <body>
         <LoginPopup />
-        {!isAdminPage && !register && !login && <Header />}
+        {!isAdminPage && !register && !login && !otpverify && <Header />}
         {children}
-        {!isAdminPage && !register && !login && <Footer />}
+        {!isAdminPage && !register && !login && !otpverify && <Footer />}
         <Toaster />
         <FloatingWhatsApp
           phoneNumber="123456789"
           accountName="Foo"
-          notification
+          notificationDelay={10}
+          notification={true}
           notificationSound={true}
-          notificationLoop={5}
           onNotification
+          chatMessage="Hello, How can i help you"
+          statusMessage="Typically replies instantly"
+          accountName="Ankit Goyal"
+          phoneNumber="+919810505025"
         />
       </body>
     </html>

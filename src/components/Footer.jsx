@@ -58,7 +58,7 @@ export default function Footer() {
                     <li>
                       <a
                         target="_blank"
-                        href="https://www.instagram.com/infrakeys_by_arrant/"
+                        href="https://www.instagram.com/infrakeys_technologies/"
                       >
                         <BsInstagram />
                       </a>
@@ -102,9 +102,9 @@ export default function Footer() {
                   <h5 className="footerHeading">Reach Us At:</h5>
                   <ul>
                     <li>
-                      <a href="tel:+919810103410">
+                      <a href="tel:+918130376622">
                         <BsPhoneFill />
-                        <span>+91 9810103410</span>
+                        <span>+91 8130376622</span>
                       </a>
                       <a href="mail:info@infrakeys.com">
                         <BsFillEnvelopeAtFill />
