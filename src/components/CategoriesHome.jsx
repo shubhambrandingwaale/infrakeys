@@ -33,19 +33,28 @@ export default function CategoriesHome() {
             <Swiper
               slidesPerView={1}
               spaceBetween={10}
-              pagination={{
-                clickable: true,
-              }}
               breakpoints={{
-                640: {
+                300: {
                   slidesPerView: 2,
                   spaceBetween: 20,
                 },
-                768: {
+                500: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                640: {
                   slidesPerView: 3,
                   spaceBetween: 20,
                 },
+                768: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                },
                 1024: {
+                  slidesPerView: 6,
+                  spaceBetween: 20,
+                },
+                1440: {
                   slidesPerView: 8,
                   spaceBetween: 20,
                 },

@@ -114,8 +114,17 @@ export default function Footer() {
                         <span>info@infrakeys.com</span>
                       </a>
                       <a href="#">
-                        <BsPinMapFill />
-                        <span>519 & 520, the business hub, sec-81,FBD</span>
+                        <div className="row">
+                          <div className="col-1">
+                            <BsPinMapFill />
+                          </div>
+                          <div className="col-11">
+                            <span>
+                              519-521, 5th floor, The Business Hub, Sector-81,
+                              Greater Faridabad, 121007, Haryana
+                            </span>
+                          </div>
+                        </div>
                       </a>
                     </li>
                   </ul>
