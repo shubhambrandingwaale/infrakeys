@@ -29,62 +29,31 @@ export default function CategoriesHome() {
       <section className="commonSection">
         <div className="container-fluid">
           <CenterHeading heading="Product Categories" />
-          <div className="row d-flex justify-content-start row-cols-xs-2 row-cols-lg-8">
-            <Swiper
-              slidesPerView={1}
-              spaceBetween={10}
-              breakpoints={{
-                300: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                500: {
-                  slidesPerView: 2,
-                  spaceBetween: 20,
-                },
-                640: {
-                  slidesPerView: 3,
-                  spaceBetween: 20,
-                },
-                768: {
-                  slidesPerView: 4,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  slidesPerView: 6,
-                  spaceBetween: 20,
-                },
-                1440: {
-                  slidesPerView: 8,
-                  spaceBetween: 20,
-                },
-              }}
-              modules={[Pagination]}
-              className="relatedproductslider"
-            >
-              {data?.map((category) => {
-                return (
-                  <SwiperSlide category={category} key={category.id}>
-                    <div className="categoryCard">
-                      <Link
-                        href={`/categories/${category.name
-                          .toLowerCase()
-                          .split(" ")
-                          .join("-")}/${category.id}`}
-                      >
-                        <Image
-                          src={`https://infrakeysapp.in${category.image_url}`}
-                          alt={` ${category.name}  | Main Categories in Infrakeys`}
-                          width={150}
-                          height={100}
-                        />
-                        <span>{category.name}</span>
-                      </Link>
-                    </div>
-                  </SwiperSlide>
-                );
-              })}
-            </Swiper>
+          <div className="categoriesGrid">
+            {data?.map((category) => {
+              return (
+                <div
+                  className="categoryCard"
+                  category={category}
+                  key={category.id}
+                >
+                  <Link
+                    href={`/categories/${category.name
+                      .toLowerCase()
+                      .split(" ")
+                      .join("-")}/${category.id}`}
+                  >
+                    <Image
+                      src={`https://infrakeysapp.in${category.image_url}`}
+                      alt={` ${category.name}  | Main Categories in Infrakeys`}
+                      width={250}
+                      height={150}
+                    />
+                    <span>{category.name}</span>
+                  </Link>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>

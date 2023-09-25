@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-export default function Page({ params: { categoryId } }) {
+export default function Page({ params: { categoryId, categoryName } }) {
   const [subCategories, setSubCategories] = useState([]);
   console.log(subCategories, categoryId);
   useEffect(() => {
@@ -26,35 +26,31 @@ export default function Page({ params: { categoryId } }) {
   return (
     <>
       <section className="subCategories commonSection">
-        <CenterHeading heading="Sub Categories" />
-        <div className="container-fluid">
-          <div className="row mt-3">
-            {subCategories?.map((subcategory) => {
-              return (
-                <div
-                  key={subcategory.id}
-                  className="col-lg-2 col-md-3 col-sm-4 col-6"
+        <CenterHeading
+          heading={categoryName.split("-").join(" ").toUpperCase()}
+        />
+
+        <div className="categoriesGrid">
+          {subCategories?.map((subcategory) => {
+            return (
+              <div key={subcategory.id} className="categoryCard">
+                <Link
+                  href={`/sub-categories/${subcategory.name
+                    .toLowerCase()
+                    .split(" ")
+                    .join("-")}/${subcategory.id}`}
                 >
-                  <div className="categoryCard">
-                    <Link
-                      href={`/sub-categories/${subcategory.name
-                        .toLowerCase()
-                        .split(" ")
-                        .join("-")}/${subcategory.id}`}
-                    >
-                      <Image
-                        src={`https://infrakeysapp.in${subcategory.image_url}`}
-                        alt={`${subcategory.name} | Sub Category | Infrakeys`}
-                        width={150}
-                        height={100}
-                      />
-                      <span>{subcategory.name}</span>
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+                  <Image
+                    src={`https://infrakeysapp.in${subcategory.image_url}`}
+                    alt={`${subcategory.name} | Sub Category | Infrakeys`}
+                    width={250}
+                    height={150}
+                  />
+                  <span>{subcategory.name}</span>
+                </Link>
+              </div>
+            );
+          })}
         </div>
       </section>
     </>

@@ -1237,3 +1237,10 @@ button.username svg {
 .tabLinks {
   padding: 10px;
 }
+.categoriesGrid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
