@@ -96,7 +96,7 @@ export default function Page() {
                     icon={<HiViewGridAdd />}
                   />
                   <ActionBtn
-                    name="View All Sub cate.."
+                    name="View All Categories"
                     link="/admin/sub-categories"
                     icon={<AiOutlinePartition />}
                   />
