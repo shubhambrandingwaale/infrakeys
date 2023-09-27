@@ -131,7 +131,7 @@ export default function AddProductAbout({
                 })
               )}
             </select>
-            <label className="user-label">Select Sub Category</label>
+            <label className="user-label">Select Category</label>
           </div>
         </div>
         <div className="col-lg-4">

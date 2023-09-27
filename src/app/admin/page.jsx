@@ -145,7 +145,7 @@ export default function Page() {
                     <div className="statsCard">
                       <AiOutlinePartition />
                       <h2>{stats[0]?.total_sub_categories}</h2>
-                      <span>Total Sub Categories</span>
+                      <span>Total Categories</span>
                     </div>
                   </div>
                   <div className="col-sm-4 mb-3 col-12">

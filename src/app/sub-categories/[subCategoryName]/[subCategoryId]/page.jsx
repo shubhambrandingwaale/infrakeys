@@ -5,8 +5,6 @@ import { publicRequest } from "@/libs/requestMethods";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
 export default function Page({ params: { subCategoryId, subCategoryName } }) {
   const [products, setProducts] = useState([]);
   useEffect(() => {
