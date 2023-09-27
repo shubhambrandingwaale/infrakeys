@@ -27,7 +27,7 @@ export default function Page({ params: { subCategoryId, subCategoryName } }) {
       <section className="commonSection">
         <div className="container-fluid">
           <CenterHeading heading={subCategoryName} />
-          <div className="row">
+          <div className="row mt-3">
             {products?.map((product, key) => {
               return (
                 <div className="col-lg-3 col-md-4 col-sm-6 mb-4">
