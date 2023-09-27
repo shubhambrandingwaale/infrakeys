@@ -15,8 +15,9 @@ export default function CategoriesHome() {
   useEffect(() => {
     (async function () {
       try {
-        const resp = await publicRequest.get("/categories");
+        const resp = await publicRequest.get("/sub-categories");
         setData(resp.data);
+        console.log(resp.data);
       } catch (error) {
         console.log(error);
       }
@@ -38,7 +39,7 @@ export default function CategoriesHome() {
                   key={category.id}
                 >
                   <Link
-                    href={`/categories/${category.name
+                    href={`sub-categories/${category.name
                       .toLowerCase()
                       .split(" ")
                       .join("-")}/${category.id}`}

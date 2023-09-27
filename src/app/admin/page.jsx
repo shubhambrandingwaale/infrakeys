@@ -89,21 +89,9 @@ export default function Page() {
                     icon={<BsBoxSeam />}
                   />
                 </div>
-                <div className="row" id="actionCategories">
-                  <ActionBtn
-                    name="Add Categories"
-                    link="/admin/categories/add"
-                    icon={<HiViewGridAdd />}
-                  />
-                  <ActionBtn
-                    name="View all Categories"
-                    link="/admin/categories"
-                    icon={<AiOutlineApartment />}
-                  />
-                </div>
                 <div className="row" id="actionSubCategories">
                   <ActionBtn
-                    name="Add Sub catego.."
+                    name="Add Categories"
                     link="/admin/sub-categories/add"
                     icon={<HiViewGridAdd />}
                   />
@@ -151,13 +139,6 @@ export default function Page() {
                       <BsBoxSeam />
                       <h2>{stats[0]?.total_products}</h2>
                       <span>Total Products</span>
-                    </div>
-                  </div>
-                  <div className="col-sm-4 mb-3 col-12">
-                    <div className="statsCard">
-                      <AiOutlineApartment />
-                      <h2>{stats[0]?.total_categories}</h2>
-                      <span>Total Categories</span>
                     </div>
                   </div>
                   <div className="col-sm-4 mb-3 col-12">

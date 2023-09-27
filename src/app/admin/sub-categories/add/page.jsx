@@ -9,7 +9,7 @@ import { toast } from "react-hot-toast";
 export default function Page() {
   const [image, setImage] = useState({ preview: "", data: "" });
   const [inputVals, setInputVals] = useState({
-    categoryId: "",
+    categoryId: "45",
     name: "",
   });
   const [categories, setCategories] = useState([]);
@@ -80,30 +80,6 @@ export default function Page() {
               <div className="formSmall">
                 <h4>Create New Sub Category</h4>
                 <form onSubmit={handleFormSubmit}>
-                  <div className="inputGroup">
-                    <label className="user-label">Select Category</label>
-                    <select
-                      required
-                      autoComplete="off"
-                      className="createInput"
-                      type="text"
-                      name="categoryId"
-                      value={inputVals.categoryId}
-                      onChange={(e) =>
-                        setInputVals((prev) => ({
-                          ...prev,
-                          [e.target.name]: e.target.value,
-                        }))
-                      }
-                    >
-                      <option value="" hidden></option>
-                      {categories?.map((category) => (
-                        <option key={category.id} value={category.id}>
-                          {category.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
                   <div className="inputGroup">
                     <input
                       required
